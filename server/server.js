@@ -11,7 +11,9 @@ async function listDatabases(client){
 };
 
 async function main() {
-  const uri = "mongodb+srv://alzheimerCalgary2022:gnDDqw5Wt46Gr97K@cluster0.dxhaxm8.mongodb.net/?retryWrites=true&w=majority";
+  const username = ""; //fill credentials
+  const password = "";
+  const uri = "mongodb+srv://" + username + ":" + password + "@cluster0.dxhaxm8.mongodb.net/?retryWrites=true&w=majority";
   const client = new MongoClient(uri);
 
   try {
