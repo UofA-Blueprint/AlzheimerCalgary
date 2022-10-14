@@ -1,12 +1,29 @@
 import express from "express";
+import {MongoClient} from "mongodb";
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("connected");
-});
+async function listDatabases(client){
+  const databasesList = await client.db().admin().listDatabases();
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log("Server listening the port http://localhost/" + port);
-});
+  console.log("Databases:");
+  databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
+
+async function main() {
+  const uri = "mongodb+srv://alzheimerCalgary2022:gnDDqw5Wt46Gr97K@cluster0.dxhaxm8.mongodb.net/?retryWrites=true&w=majority";
+  const client = new MongoClient(uri);
+
+  try {
+    // Connect to MongoDB cluster
+    await client.connect();
+    await listDatabases(client);
+  } catch (error) {
+    console.error(error);
+  } finally{
+    await client.close();
+  }
+
+}
+
+main().catch(console.error);
