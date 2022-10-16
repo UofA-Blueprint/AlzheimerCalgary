@@ -1,7 +1,9 @@
 import express from "express";
 import {MongoClient} from "mongodb";
+import dotenv from "dotenv";
 
 const app = express();
+dotenv.config();
 
 async function listDatabases(client){
   const databasesList = await client.db().admin().listDatabases();
@@ -11,8 +13,8 @@ async function listDatabases(client){
 };
 
 async function main() {
-  const username = ""; //fill credentials
-  const password = "";
+  const username = process.env.MONGO_USER;
+  const password = process.env.MONGO_PASSWORD;
   const uri = "mongodb+srv://" + username + ":" + password + "@cluster0.dxhaxm8.mongodb.net/?retryWrites=true&w=majority";
   const client = new MongoClient(uri);
 
