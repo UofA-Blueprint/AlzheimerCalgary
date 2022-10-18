@@ -1,22 +1,21 @@
-import express from "express";
-import {MongoClient} from "mongodb";
-import dotenv from "dotenv";
+const express = require("express");
+const mongodb = require("mongodb");
+const dotenv = require("dotenv");
 
 const app = express();
 dotenv.config();
 
-async function listDatabases(client){
+const listDatabases = async (client) => {
   const databasesList = await client.db().admin().listDatabases();
-
   console.log("Databases:");
   databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
 
-async function main() {
+const run = async () => {
   const username = process.env.MONGO_USER;
   const password = process.env.MONGO_PASSWORD;
   const uri = "mongodb+srv://" + username + ":" + password + "@cluster0.dxhaxm8.mongodb.net/?retryWrites=true&w=majority";
-  const client = new MongoClient(uri);
+  const client = new mongodb.MongoClient(uri);
 
   try {
     // Connect to MongoDB cluster
@@ -30,4 +29,5 @@ async function main() {
 
 }
 
-main().catch(console.error);
+run().catch(console.error);
+module.exports = app;
