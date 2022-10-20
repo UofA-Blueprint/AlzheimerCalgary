@@ -38,7 +38,7 @@ jobs:
     - run: npm install
       working-directory: ./server
     - run: chmod +rwx ./node_modules/.bin/jest
-    - run: npm run
+    - run: npm start
       working-directory: ./server
     - run: npm test
       working-directory: ./server
