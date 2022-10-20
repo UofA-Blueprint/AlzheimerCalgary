@@ -33,8 +33,8 @@ jobs:
     - run: |
         touch ./server/.env
         echo MONGO_USER=${{ secrets.MONGO_USER }}
-        echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env
-        cat .env
+        echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> ./server/.env
+        cat ./server/.env
     - run: npm install
       working-directory: ./server
     - run: chmod +rwx ./node_modules/.bin/jest
