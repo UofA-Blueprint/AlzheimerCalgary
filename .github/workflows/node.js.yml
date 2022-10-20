@@ -29,7 +29,7 @@ jobs:
         cache-dependency-path: "./server/package-lock.json"
     - run: |
         touch ./server/.env
-        echo MONGO_USER=alzheimerCalgary2022
+        echo MONGO_USER=alzheimerCalgary2022 >> ./server/.env
         echo MONGO_PASSWORD=BRl7PjZ9TiYtieZW >> ./server/.env
         cat ./server/.env
     - run: npm install
