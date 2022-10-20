@@ -32,8 +32,8 @@ jobs:
         MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
     - run: |
         touch ./server/.env
-        echo MONGO_USER=${{ secrets.MONGO_USER }}
-        echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> ./server/.env
+        echo MONGO_USER=alzheimerCalgary2022
+        echo MONGO_PASSWORD=BRl7PjZ9TiYtieZW >> ./server/.env
         cat ./server/.env
     - run: npm install
       working-directory: ./server
