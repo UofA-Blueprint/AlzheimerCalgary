@@ -39,5 +39,5 @@ jobs:
     - run:
         npm install
       working-directory: ./server
-    - run: npm test
+    - run: sudo npm test
       working-directory: ./server
