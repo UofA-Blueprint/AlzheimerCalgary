@@ -1,6 +1,9 @@
-const express = require("express");
-const mongodb = require("mongodb");
-const dotenv = require("dotenv");
+// const express = require("express");
+// const mongodb = require("mongodb");
+// const dotenv = require("dotenv");
+import express from "express";
+import mongodb from "mongodb";
+import dotenv from "dotenv";
 
 const app = express();
 dotenv.config();
@@ -30,4 +33,4 @@ const run = async () => {
 }
 
 run().catch(console.error);
-module.exports = app;
+//module.exports = app;
