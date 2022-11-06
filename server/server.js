@@ -10,6 +10,8 @@ const jsonwebtoken = require('jsonwebtoken');
 
 
 ///////////////////////////////////////////// Configurations ////////////////////////////////////////
+const User = require('./models/user.model');  // register schema for model User
+
 const app = express();
 
 dotenv.config();
