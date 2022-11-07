@@ -1,6 +1,9 @@
 import {S3Client, ListBucketsCommand, PutObjectCommand, HeadObjectCommand} from "@aws-sdk/client-s3";
 import dotenv from 'dotenv';
 
+import fs from 'fs';
+
+
 dotenv.config();
 
 const s3Client = new S3Client({
@@ -22,8 +25,7 @@ export const run = async () => {
 };
 
 
-
-export const uploadPhoto = async (fileDetails) => {
+const uploadPhoto = async (fileDetails) => {
   const uploadParams = {
     Bucket: process.env.AwsBucketName,
     Key: fileDetails.Key,
@@ -38,4 +40,16 @@ export const uploadPhoto = async (fileDetails) => {
   }
 };
 
-run();
+const fileDetails = {
+  Key: '',
+  Body: ''
+}
+
+
+const img = fs.readFileSync('./assets/img.png');
+fileDetails.Key = 'img';
+fileDetails.Body = img;
+
+uploadPhoto(fileDetails);
+
+// run();
