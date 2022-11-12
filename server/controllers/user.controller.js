@@ -25,7 +25,7 @@ exports.login = (req, res) => {
 	User.findOne(
 		{username: req.body.username},
 		(err, user) => {
-			if (err) {return res.status(500).json({message: `Failed to find user. This doesn't mean the user doesn't exist. Error: ${err}.`});}
+			if (err) {return res.status(500).json({message: `Failed to find user. This doesn't mean the user doesn't exist. ${err}.`});}
 			if (!user || !user.comparePassword(req.body.password)) {
 				return res.status(401).json({message: 'Authentication failed. Invalid user or password.'});
 			} else {
@@ -33,12 +33,12 @@ exports.login = (req, res) => {
 					let secretKey;
 					if (Authenticator.isStaff(user.role)) {secretKey = process.env.STAFF_SECRET_KEY;}
 					else if (Authenticator.isCaregiver(user.role)) {secretKey = process.env.CAREGIVER_SECRET_KEY;}
-					else {return res.status(400).json({success: false, token: 'undefined'});}
+					else {return res.status(401).json({success: false, token: 'undefined'});}
 
 					const accessToken = jwt.sign({username: user.username, role: user.role, _id: user._id}, secretKey);
 					return res.json({success: true, token: accessToken});
 				} catch (err) {
-					return res.status(500).json({message: `Failed to create token. Error: ${err}.`});
+					return res.status(500).json({message: `Failed to create token. ${err}.`});
 				}
 			}
 		}
