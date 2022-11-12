@@ -13,7 +13,7 @@ exports.createUser = (username, role, res) => {
 	newUser.save(
 		(err, user) => {
 			if (err) {
-				return res.status(400).send({message: `Failed to save user. Error: ${err}.`});
+				return res.status(400).send({message: `Failed to save user. ${err}.`});
 			}
 			else {
 				user.hash_password = undefined;
@@ -30,7 +30,7 @@ exports.createStaff = (username, password, res) => {
 	newUser.save(
 		(err, user) => {
 			if (err) {
-				return res.status(400).send({message: `Failed to save user. Error: ${err}.`});
+				return res.status(400).send({message: `Failed to save user. ${err}.`});
 			}
 			else {
 				user.hash_password = undefined;
