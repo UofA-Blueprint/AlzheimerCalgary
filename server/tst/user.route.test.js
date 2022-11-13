@@ -70,6 +70,9 @@ describe('test /user routes', () => {
 		expect(response.statusCode).toBe(200);
 		expect(response.body.username.length >= 1).toBe(true);
 		expect(response.body.password.length >= 1).toBe(true);
+
+		const db = mongoose.connection;
+		await db.collection('users').deleteOne({"username":"iAmANewUser"});
 	});
 
 	// Test register route where a logged in staff member creates a new account for another person here. This should be unsuccessful.
