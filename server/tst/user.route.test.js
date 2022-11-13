@@ -8,7 +8,6 @@ describe('test /user routes', () => {
 	jest.setTimeout(20000) // added a timeout to avoid the test to fail as the MongoDB connection is slow
 	
 	// Start with connecting to our database
-	/*
 	beforeAll(async () => {
 		const username = process.env.MONGO_USER;
 		const password = process.env.MONGO_PASSWORD;
@@ -17,12 +16,12 @@ describe('test /user routes', () => {
 		    useNewUrlParser: true,
 		    useUnifiedTopology: true,
 		})
-	}); */
+	}); 
 
 	test('random test}', async () => {
 		expect(true).toBe(true);
 	});
-/*
+
 	// Test login route here. This should be successful.
 	var loginToken;  // this is to be used for register route later
 	test('POST /user/auth/login -> Should return status 200 and a JSON object like {success: true, token: token}', async () => {
@@ -128,7 +127,6 @@ describe('test /user routes', () => {
 		
 	});
 
-	*/
 	// When all tests are finished, close database connection
 	afterAll(async () => {
 		// disconnect from mongoDB
