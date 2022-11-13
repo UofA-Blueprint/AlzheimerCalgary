@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main"]
+    branches: [ "main", "develop"]
 
 jobs:
   build:
@@ -31,6 +31,8 @@ jobs:
         touch ./server/.env
         echo MONGO_USER=${{ secrets.MONGO_USER }} >> ./server/.env
         echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> ./server/.env
+        echo STAFF_SECRET_KEY=${{ secrets.STAFF_SECRET_KEY }} >> ./server/.env
+        echo CAREGIVER_SECRET_KEY=${{ secrets.CAREGIVER_SECRET_KEY }} >> ./server/.env
         cat ./server/.env
     - run: npm install
       working-directory: ./server
