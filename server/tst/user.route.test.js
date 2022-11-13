@@ -1,6 +1,8 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../server');
+const dotenv = require("dotenv");
+dotenv.config();
 
 describe('test /user routes', () => {
 	jest.setTimeout(20000) // added a timeout to avoid the test to fail as the MongoDB connection is slow
