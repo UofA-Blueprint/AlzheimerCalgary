@@ -1,6 +1,6 @@
-const request = require('supertest')
+const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../server')
+const app = require('../server');
 
 describe('test /user routes', () => {
 	jest.setTimeout(20000) // added a timeout to avoid the test to fail as the MongoDB connection is slow
@@ -126,4 +126,4 @@ describe('test /user routes', () => {
 		// disconnect from mongoDB
 		await mongoose.connection.close();
 	});
-})
+});
