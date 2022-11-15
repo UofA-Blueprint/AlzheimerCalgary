@@ -22,8 +22,6 @@ describe('test /user routes', () => {
 		expect(true).toBe(true);
 	});
 
-
-	/*
 	// Start with connecting to our database
 	beforeAll(async () => {
 		const username = process.env.MONGO_USER;
@@ -143,7 +141,6 @@ describe('test /user routes', () => {
 		expect(response.statusCode).toBe(400);
 		
 	});
-*/
 	// When all tests are finished, close database connection
 	afterAll(async () => {
 		// disconnect from mongoDB
