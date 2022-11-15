@@ -1,12 +1,22 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../server');
+const app = require('../app');
 const dotenv = require("dotenv");
 dotenv.config();
 
 describe('test /user routes', () => {
 	jest.setTimeout(20000) // added a timeout to avoid the test to fail as the MongoDB connection is slow
 
+	//Start with connecting to our database
+	beforeAll(async () => {
+		const username = process.env.MONGO_USER;
+		const password = process.env.MONGO_PASSWORD;
+		const mongoURI = "mongodb+srv://" + username + ":" + password + "@cluster0.dxhaxm8.mongodb.net/?retryWrites=true&w=majority";
+		await mongoose.connect(mongoURI, {
+		    useNewUrlParser: true,
+		    useUnifiedTopology: true,
+		})
+	}); 
 
 	test('random test}', async () => {
 		expect(true).toBe(true);
@@ -133,11 +143,11 @@ describe('test /user routes', () => {
 		expect(response.statusCode).toBe(400);
 		
 	});
-
+*/
 	// When all tests are finished, close database connection
 	afterAll(async () => {
 		// disconnect from mongoDB
 		await mongoose.connection.close();
 	});
-*/
+
 });
