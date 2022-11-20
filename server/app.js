@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 
 ///////////////////////////////////////////// Configurations ////////////////////////////////////////
 const User = require('./models/user.model');  // register schema for model User
+const Activity = require('./models/activity.model')
 
 const app = express();
 
@@ -31,6 +32,7 @@ mongoose.connect(mongoURI)
 
 ///////////////////// Import routes ////////////////////
 const userRouter = require('./routes/user.route');
+const activityRouter = require('./routes/activity.route')
 ///////////////////////////////////////////////////////
 
 
@@ -40,9 +42,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/user', userRouter);
+app.use('/activity', activityRouter);
 
 app.use((req, res) => {
-	res.status(404).send({url: req.originalUrl + 'not found'});
+	res.status(404).send({url: req.originalUrl + ' not found'});
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
