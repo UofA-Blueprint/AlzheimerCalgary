@@ -1,31 +1,62 @@
 const { ObjectId } = require('mongodb');
 const Activity = require('../models/activity.model');
-const ActivityHandler = require('../services/ActivityHandler');
 
-exports.createActivity = (req, res) => {
+exports.getActivity = ((req, res) => {
+    const activityType = req.body.activityType;
+    if(activityType){
+        const activityCollection = Activity.find({activityType: activityType});
+        console.log(activityCollection.toObject())
+        return res.json(activityCollection.toArray());
+    }
+    // Activity.find({activityType: activityType})
+})
+
+exports.createActivity = ((req, res) => {
     const activityName = req.body.activityName;
     const activityType = req.body.activityType;
     const description = req.body.description;
-    ActivityHandler.createActivity(activityName, activityType, description, res);
-}
+    const newActivity = new Activity({activityType: activityType, activityName: activityName, description: description});
+    newActivity.save(
+        (err) => {
+			if (err) {
+				return res.status(400).send({message: `Failed to save user. ${err}`});
+			}
+			else {
+				return res.json({success: true, activityName: activityName, description: description});
+			}
+		}
+    );
+})
 
-exports.deleteActivity = (req, res) => {
+exports.deleteActivity = ((req, res) => {
     const objectID = ObjectId(req.body.ObjectID);
-    ActivityHandler.deleteActivity(objectID, res);
-}
+    Activity.findByIdAndRemove(
+		objectID,
+		(err) => {
+			if (err){
+				return res.status(404).send({message: `Failed to delete user. ${err}`});
+			}
+			else{
+				return res.json({success: true});
+			}
+		}
+	).orFail();
+})
 
-exports.getActivity = (req, res) => {
-    // const activityType = req.body.activityType;
-    // if(activityType){
-    //     ActivityHandler.getActivitiesByType(activityType, res);
-    // }
-    ActivityHandler.getActivities(res);
-}
 
-exports.updateActivity = (req, res) => {
-    const objectID = ObjectId(req.body.ObjectID);
+exports.updateActivity = ((req, res) => {
+    const ObjectID = ObjectId(req.body.ObjectID);
     const activityName = req.body.activityName;
     const activityType = req.body.activityType;
     const description = req.body.description;
-    ActivityHandler.updateActivity(objectID, activityName, activityType, description, res);
-}
+    Activity.findOneAndUpdate({_id:ObjectID},{activityName: activityName, activityType: activityType, description: description},
+		(err) => {
+			if (err) {
+				return res.status(400).send({message: `Failed to save user. ${err}`});
+			}
+			else {
+				return res.json({success: true, objectID:ObjectID, activityName: activityName, description: description});
+			}
+		}
+	).orFail();
+})
