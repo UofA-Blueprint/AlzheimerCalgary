@@ -3,13 +3,14 @@ const express = require('express');
 const activityController = require('../controllers/activity.controller');
 const router = express.Router();
 /////////////////////////////////////////////////////////////////
-router.route('/createActivity')
+router.route('/')
 .post(activityController.createActivity);
-router.route('/createActivity')
-.put(activityController.createOrUpdateActivity);
-router.route('/deleteActivity')
+router.route('/')
+.put(activityController.updateActivity);
+router.route('/')
 .delete(activityController.deleteActivity);
-
+router.route('/')
+.get(activityController.getActivity)
 // router.route('/getActivities')
 // .get(activityController.getActivity)
 

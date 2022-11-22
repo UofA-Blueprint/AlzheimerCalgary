@@ -10,14 +10,22 @@ exports.createActivity = (req, res) => {
 }
 
 exports.deleteActivity = (req, res) => {
-    const objectID = ObjectId(req.body.objectID);
+    const objectID = ObjectId(req.body.ObjectID);
     ActivityHandler.deleteActivity(objectID, res);
 }
 
-exports.createOrUpdateActivity = (req, res) => {
-    const objectID = ObjectId(req.body.objectID);
+exports.getActivity = (req, res) => {
+    // const activityType = req.body.activityType;
+    // if(activityType){
+    //     ActivityHandler.getActivitiesByType(activityType, res);
+    // }
+    ActivityHandler.getActivities(res);
+}
+
+exports.updateActivity = (req, res) => {
+    const objectID = ObjectId(req.body.ObjectID);
     const activityName = req.body.activityName;
     const activityType = req.body.activityType;
     const description = req.body.description;
-    ActivityHandler.createOrUpdateActivity(objectID, activityName, activityType, description, res);
+    ActivityHandler.updateActivity(objectID, activityName, activityType, description, res);
 }

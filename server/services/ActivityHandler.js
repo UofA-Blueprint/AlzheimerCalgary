@@ -1,3 +1,4 @@
+const { ObjectID } = require('bson');
 const Activity = require('../models/activity.model');
 
 exports.createActivity = (activityType, activityName, description, res) => {
@@ -5,7 +6,7 @@ exports.createActivity = (activityType, activityName, description, res) => {
     newActivity.save(
         (err) => {
 			if (err) {
-				return res.status(400).send({message: `Failed to save user. ${err}.`});
+				return res.status(400).send({message: `Failed to save user. ${err}`});
 			}
 			else {
 				return res.json({success: true, activityName: activityName, description: description});
@@ -14,17 +15,21 @@ exports.createActivity = (activityType, activityName, description, res) => {
     );
 }
 
-exports.createOrUpdateActivity = (ObjectID, activityName, activityType, description, res) =>{
-	Activity.findOneAndUpdate({_id:ObjectID},{activityName: activityName, activityType: activityType, description: description}, {upsert: true},
+exports.getActivities= (res) => {
+	Activity.find({});
+}
+
+exports.updateActivity = (ObjectID, activityName, activityType, description, res) =>{
+	Activity.findOneAndUpdate({_id:ObjectID},{activityName: activityName, activityType: activityType, description: description},
 		(err) => {
 			if (err) {
-				return res.status(400).send({message: `Failed to save user. ${err}.`});
+				return res.status(400).send({message: `Failed to save user. ${err}`});
 			}
 			else {
 				return res.json({success: true, objectID:ObjectID, activityName: activityName, description: description});
 			}
 		}
-	);
+	).orFail();
 }
 
 exports.deleteActivity = (objectID, res) =>{
@@ -38,6 +43,6 @@ exports.deleteActivity = (objectID, res) =>{
 				return res.json({success: true});
 			}
 		}
-	);
+	).orFail();
 
 }
