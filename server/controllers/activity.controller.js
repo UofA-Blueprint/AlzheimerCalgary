@@ -2,11 +2,11 @@ const { ObjectId } = require('mongodb');
 const Activity = require('../models/activity.model');
 
 exports.getActivity = ((req, res) => {
+	// TODO: Need to filter based on activity and return a JSON object containing all the activities
+	// Error in converting Mongoose Query object to json
     const activityType = req.body.activityType;
     if(activityType){
-        const activityCollection = Activity.find({activityType: activityType});
-        console.log(activityCollection.toObject())
-        return res.json(activityCollection.toArray());
+        const activityCollection = Activity.find({activityType: activityType})
     }
     // Activity.find({activityType: activityType})
 })
