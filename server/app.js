@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 
 ///////////////////////////////////////////// Configurations ////////////////////////////////////////
 const User = require('./models/user.model');  // register schema for model User
-const Activity = require('./models/activity.model')
+
 
 const app = express();
 
