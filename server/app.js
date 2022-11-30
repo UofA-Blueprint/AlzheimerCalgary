@@ -31,6 +31,7 @@ mongoose.connect(mongoURI)
 
 ///////////////////// Import routes ////////////////////
 const userRouter = require('./routes/user.route');
+const clientRouter = require('./routes/client.route');
 ///////////////////////////////////////////////////////
 
 
@@ -40,6 +41,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/user', userRouter);
+app.use('/client', clientRouter);
 
 app.use((req, res) => {
 	res.status(404).send({url: req.originalUrl + 'not found'});
