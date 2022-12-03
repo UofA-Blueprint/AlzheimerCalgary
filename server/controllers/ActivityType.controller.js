@@ -1,10 +1,11 @@
 ///////////////////////////// Import dependencies ///////////////////////////////
 const ActivityType = require('../models/ActivityType.model');
+const JWTVerifier = require('../services/JWTVerifier');
 /////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////// CRUD Callbacks for Activity Types ///////////////////////////////////////////
-exports.getAllActivityTypes = (req, res) => {
+exports.getAll = (req, res) => {
 	ActivityType.find({}, (err, types) => {
 		if (err) {return res.status(400).json({ message: `Failed to find activity types. ${err}` });}
 		else {
@@ -16,46 +17,63 @@ exports.getAllActivityTypes = (req, res) => {
 	});
 }
 
-exports.createNewActivityType = (req, res) => {
-	const activityTypeName = req.body.activityTypeName;
-	const newActivityType = new ActivityType({ name: activityTypeName });
-	newActivityType.save(
-		(err) => {
-				if (err) {
-					return res.status(400).send({message: `Failed to save new activity type. ${err}`});
+exports.create = (req, res) => {
+	if (JWTVerifier.verifyStaffToken(req.body.token, process.env.STAFF_SECRET_KEY)) {
+		const activityTypeName = req.body.name;
+		const newActivityType = new ActivityType({ name: activityTypeName });
+		newActivityType.save(
+			(err) => {
+					if (err) {
+						return res.status(400).send({message: `Failed to save new activity type. ${err}`});
+					}
+					else {
+						return res.status(200).json({success: true, name: activityTypeName});
+					}
 				}
+		);
+	}
+	else {
+		res.status(401).json({success: false, message: 'Invalid staff token.'});
+	}
+}
+
+exports.update = (req, res) => {
+	if (JWTVerifier.verifyStaffToken(req.body.token, process.env.STAFF_SECRET_KEY)) {
+		const activityTypeName = req.body.current_name;
+		const newActivityTypeName = req.body.new_name;
+		ActivityType.findOneAndUpdate(
+			{ name: activityTypeName },
+			{ $set: {name: newActivityTypeName} },
+			(err, updatedActivityType) => {
+				if (err) {return res.status(400).json({ message: `Failed to update activity type. ${err}` });}
+				else if (!updatedActivityType) {return res.status(400).json({ message: `Activity type ${activityTypeName} does not exist.` });} 
 				else {
-					return res.json({success: true, name: activityTypeName});
+					return res.status(200).json({ success: true, old_name: activityTypeName, updated_name: updatedActivityType.name });
 				}
 			}
-	);
+		);
+	}
+	else {
+		res.status(401).json({success: false, message: 'Invalid staff token.'});
+	}
 }
 
-exports.updateActivityType = (req, res) => {
-	const activityTypeName = req.body.activityTypeName;
-	const newActivityTypeName = req.body.newActivityTypeName;
-	ActivityType.findOneAndUpdate(
-		{ name: activityTypeName },
-		{ $set: {name: newActivityTypeName} },
-		(err, updatedActivityType) => {
-			if (err) {return res.status(400).json({ message: `Failed to update activity type. ${err}` });}
-			else {
-				return res.status(200).json({ success: true, name: updatedActivityType.name });
+exports.delete = (req, res) => {
+	if (JWTVerifier.verifyStaffToken(req.body.token, process.env.STAFF_SECRET_KEY)) {
+		const activityTypeToDelete = req.body.name;
+		ActivityType.findOneAndDelete(
+			{ name: activityTypeToDelete },
+			(err, activity) => {
+				if (err) {return res.status(400).json({ message: `Failed to delete activity type. ${err}` });}
+				else if (!activity) {return res.status(400).json({message: `Activity type ${activityTypeToDelete} does not exist.`});}
+				else {
+					return res.status(200).json({ success: true, deleted_activity: activityTypeToDelete});
+				}
 			}
-		}
-	);
-}
-
-exports.deleteActivityType = (req, res) => {
-	const activityTypeToDelete = req.body.activityTypeName;
-	ActivityType.findOneAndDelete(
-		{ name: activityTypeToDelete },
-		(err) => {
-			if (err) {return res.status(400).json({ message: `Failed to delete activity type. ${err}` });}
-			else {
-				return res.status(200).json({ success: true, deleted_activity: activityTypeToDelete});
-			}
-		}
-	);
+		);
+	}
+	else {
+		res.status(401).json({success: false, message: 'Invalid staff token.'});
+	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

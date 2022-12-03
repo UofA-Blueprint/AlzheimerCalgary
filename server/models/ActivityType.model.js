@@ -17,5 +17,5 @@ const ActivityTypeSchema = new Schema({
 
 
 /////////////////////////////// Exports /////////////////////////////
-module.exports = mongoose.model('ActivityType', ActivityTypeSchema);
+module.exports = mongoose.model('Activity_Type', ActivityTypeSchema);
 ////////////////////////////////////////////////////////////////////

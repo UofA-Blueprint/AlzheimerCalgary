@@ -7,28 +7,21 @@ const dotenv = require("dotenv");
 
 
 ///////////////////////////////////////////// Configurations ////////////////////////////////////////
-const User = require('./models/user.model');  // register schema for model User
-const ActivityType = require('./models/ActivityType.model'); // register schema for model Activity Type
-
 const app = express();
 
 dotenv.config();  // allow access to .env file
 
-const port = process.env.PORT || 5000;
-
 const username = process.env.MONGO_USER;
 const password = process.env.MONGO_PASSWORD;
 const mongoURI = "mongodb+srv://" + username + ":" + password + "@cluster0.dxhaxm8.mongodb.net/?retryWrites=true&w=majority";
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-//////////////////////////// Database connection /////////////////////////
+// Database connection
 mongoose.connect(mongoURI)
 .then(
 	() => {console.log('Connected successfully to mongodb.');},
 	(err) => {console.log(`Failed to connect to mongodb. Error: ${err}`);}
 );
-/////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 ///////////////////// Import routes ////////////////////

@@ -1,22 +1,23 @@
 /////////////////////// Import dependencies /////////////////////
 const express = require('express');
 const activityTypeController = require('../controllers/ActivityType.controller');
+const userController = require('../controllers/user.controller');
 const router = express.Router();
 /////////////////////////////////////////////////////////////////
 
 
 /////////////////////////// Routes ///////////////////////////
 router.route('/all')
-.get(activityTypeController.getAllActivityTypes);
+.get(userController.loginRequired, activityTypeController.getAll);
 
 router.route('/create')
-.post(activityTypeController.createNewActivityType);
+.post(userController.loginRequired, activityTypeController.create);
 
 router.route('/update')
-.put(activityTypeController.updateActivityType);
+.put(userController.loginRequired, activityTypeController.update);
 
 router.route('/delete')
-.delete(activityTypeController.deleteActivityType);
+.delete(userController.loginRequired, activityTypeController.delete);
 //////////////////////////////////////////////////////////////
 
 
