@@ -2,25 +2,24 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const Authenticator = require('../services/Authenticator');
-const OnRegisterTokenVerifier = require('../services/OnRegisterTokenVerifier');
+const JWTVerifier = require('../services/JWTVerifier');
 const NewUserCreator = require('../services/NewUserCreator');
 /////////////////////////////////////////////////////////////////////////////////
 
 
-/////////////////////////////////////////// Functions to be executed for HTTP routes ///////////////////////////////////////////
+/////////////////////////////////////////// Callbacks to be executed for HTTP routes ///////////////////////////////////////////
 exports.register = (req, res) => {
 	const username = req.body.username;
 	const role = req.body.role;
 	const token = req.body.token;
 
 	if (Authenticator.checkUsername(username) && Authenticator.checkRole(role)) {
-		OnRegisterTokenVerifier.verify(username, role, token, process.env.STAFF_SECRET_KEY, res);  // make sure only a staff can register accounts for the caregivers and the clients
+		JWTVerifier.verifyAndRegister(username, role, token, process.env.STAFF_SECRET_KEY, res);  // make sure only a staff can register accounts for the caregivers and the clients
 	} else {
 		return res.status(400).json({message: 'Invalid username or role'});
 	}
 }
 
-/* ------------------------- This is a dummy log in route for testing ------------------------- */
 exports.login = (req, res) => {
 	User.findOne(
 		{username: req.body.username},
@@ -44,7 +43,6 @@ exports.login = (req, res) => {
 		}
 	);
 }
-/* ------------------------- End of a dummy log in route for testing ------------------------- */
 
 /* ------------- This is a dummy sign up route for staff members used for testing ------------- */
 exports.sign_up = (req, res) => {
@@ -59,9 +57,27 @@ exports.sign_up = (req, res) => {
 /* ------------- End of a dummy sign up route for staff members used for testing ------------- */
 
 exports.loginRequired = (req, res, next) => {
-	if (req.body.token) {next();}
+	const token = req.body.token;
+
+	if (!token) {return res.status(401).json({message: 'Unauthorized. Null token.'});}
+
+	const isValidStaff = JWTVerifier.verifyStaffToken(token, process.env.STAFF_SECRET_KEY);
+	const isValidCaregiver = JWTVerifier.verifyStaffToken(token, process.env.CAREGIVER_SECRET_KEY);
+	if (isValidStaff || isValidCaregiver) {next();}
 	else {
-		return res.status(401).json({message: 'Unauthorized.'});
+		return res.status(401).json({message: 'Unauthorized. Invalid token.'});
+	}
+}
+
+exports.staffLoginRequired = (req, res, next) => {
+	const token = req.body.token;
+
+	if (!token) {return res.status(401).json({message: 'Unauthorized. Null token.'});}
+
+	const isValidStaff = JWTVerifier.verifyStaffToken(token, process.env.STAFF_SECRET_KEY);
+	if (isValidStaff) {next();}
+	else {
+		return res.status(401).json({message: 'Unauthorized. Invalid staff token.'});
 	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
