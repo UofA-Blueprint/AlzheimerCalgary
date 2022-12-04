@@ -11,13 +11,13 @@ router.route('/all')
 .get(userController.loginRequired, activityTypeController.getAll);
 
 router.route('/create')
-.post(userController.loginRequired, activityTypeController.create);
+.post(userController.staffLoginRequired, activityTypeController.create);
 
 router.route('/update')
-.put(userController.loginRequired, activityTypeController.update);
+.put(userController.staffLoginRequired, activityTypeController.update);
 
 router.route('/delete')
-.delete(userController.loginRequired, activityTypeController.delete);
+.delete(userController.staffLoginRequired, activityTypeController.delete);
 //////////////////////////////////////////////////////////////
 
 

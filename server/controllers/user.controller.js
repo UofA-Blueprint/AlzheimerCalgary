@@ -68,4 +68,16 @@ exports.loginRequired = (req, res, next) => {
 		return res.status(401).json({message: 'Unauthorized. Invalid token.'});
 	}
 }
+
+exports.staffLoginRequired = (req, res, next) => {
+	const token = req.body.token;
+
+	if (!token) {return res.status(401).json({message: 'Unauthorized. Null token.'});}
+
+	const isValidStaff = JWTVerifier.verifyStaffToken(token, process.env.STAFF_SECRET_KEY);
+	if (isValidStaff) {next();}
+	else {
+		return res.status(401).json({message: 'Unauthorized. Invalid staff token.'});
+	}
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
