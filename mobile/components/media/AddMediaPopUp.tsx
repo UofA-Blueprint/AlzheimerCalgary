@@ -15,12 +15,6 @@ interface Props {
 
 //////////////// Component //////////////
 export default function AddMediaPopUp({ setVisible }: Props) {
-	/* 
-		Props explanation:
-			+) visible: this is a boolean prop. Where AddMediaPopUp is used, visible will be a state.
-				Its initial state is false. When a 'Add Media' button somewhere is pressed to open this pop up, visible will be set to true.  
-	*/
-
 	// States //
 	const [mediaURI, setMediaURI] = useState('');
 	const [mediaType, setMediaType] = useState<string | undefined>('');
