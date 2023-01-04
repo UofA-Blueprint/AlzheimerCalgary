@@ -30,7 +30,7 @@ const RoleRouter = ({role}: RouterProps) => {
 
 const Homepage = () => {
     const [userRole, setUserRole] = useState('caregiver');
-    const [addMediaPopUpVisible, setAddMediaPopUpVisible] = useState(false);
+    const [addMediaPopUpVisible, setAddMediaPopUpVisible] = useState(false);  // To test the add media pop-up component
 
     return (
         <View>
@@ -38,6 +38,7 @@ const Homepage = () => {
             <Text>Your role: {userRole}</Text>
             <RoleRouter role={userRole}/>
             {
+                /* To test the add media pop-up component */
                 <TouchableOpacity 
                     onPress={() => {setAddMediaPopUpVisible(true);}}
                     style={{
@@ -49,10 +50,11 @@ const Homepage = () => {
                         marginTop: 30,
                         borderRadius: 10,
                     }}>
-                    <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Media/File</Text>
+                    <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Media</Text>
                 </TouchableOpacity>
             }
             {
+                /* To test the add media pop-up component */
                 addMediaPopUpVisible ?
                     <AddMediaPopUp setVisible={setAddMediaPopUpVisible}/>
                 : null

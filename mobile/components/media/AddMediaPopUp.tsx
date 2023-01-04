@@ -43,18 +43,17 @@ export default function AddMediaPopUp({ setVisible }: Props) {
 						<TouchableOpacity onPress={() => {setVisible(false)}}><EvilIcons name="close" size={38} color="grey" /></TouchableOpacity>
 					</View>
 					{
-						//<Image source={{ uri: mediaURI }} style={styles.image}/>
+						
 						mediaURI && mediaType === "image" ?
-							<View style={{width: '90%', height: 220}}>
-								<Text>{mediaURI}</Text>
+							<View style={{width: '80%', height: 190}}>
+								<Image source={{ uri: mediaURI }} style={styles.image}/>
 							</View>
 						: null
 					}
 					{
-						// <VideoPlayer controls={true} source={{ uri: mediaURI }} style={styles.video}/>
 						mediaURI && mediaType === "video" ?
-							<View style={{width: '90%', height: 220}}>
-								<Text>{mediaURI}</Text>
+							<View style={{width: '80%', height: 190}}>
+								<VideoPlayer controls={true} source={{ uri: mediaURI }} style={styles.video}/>
 							</View>
 						: null
 					}
@@ -64,7 +63,7 @@ export default function AddMediaPopUp({ setVisible }: Props) {
 						: null
 					}
 					<TouchableOpacity style={styles.addMediaButton} onPress={pickMedia}>
-						<Text style={styles.addMediaText}>Add Media/File</Text>
+						<Text style={styles.addMediaText}>Add Media</Text>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'flex-end',
 		paddingRight: 5,
-		marginBottom: 60,
+		marginBottom: 40,
 	},
 
 	addMediaText: {
@@ -105,8 +104,8 @@ const styles = StyleSheet.create({
 	},
 
 	addMediaButton: {
-		width: '70%',
-		height: 50,
+		width: '60%',
+		height: 40,
 		marginTop: 40,
 		marginBottom: 20,
 		justifyContent: 'center',
@@ -116,11 +115,13 @@ const styles = StyleSheet.create({
 	},
 
 	image: {
-		flex: 1,
+		width: '100%',
+		height: '100%',
 	},
 	
 	video: {
-		flex: 1,
+		width: '100%',
+		height: '100%',
 	},
 });
 ////////////////////////////////////////
