@@ -4,7 +4,7 @@ import StaffHome from './StaffHome';
 import CaregiverHome from './CaregiverHome';
 import ClientHome  from './ClientHome';
 import { TouchableOpacity } from 'react-native';  // to test the add media pop up component
-import AddMediaPopUp from '../media/AddMediaPopUp';  // to test the add media pop up component
+import AddMediaPopUp from '../pop-up/AddMediaPopUp';  // to test the add media pop up component
 
 interface RouterProps {
   role: string
