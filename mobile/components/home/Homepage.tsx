@@ -50,7 +50,7 @@ const Homepage = () => {
                         marginTop: 30,
                         borderRadius: 10,
                     }}>
-                    <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Media</Text>
+                    <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>Add Media</Text>
                 </TouchableOpacity>
             }
             {

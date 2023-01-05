@@ -33,6 +33,12 @@ export default function AddMediaPopUp({ setVisible }: Props) {
 			setMediaType(result.type);
 		}
 	}
+
+	function uploadMedia() {
+		/* This function will be used to store the image or video in a database */
+		if (!mediaURI) {return;}
+		else {}
+	}
 	/////////////
 
 	return (
@@ -59,12 +65,22 @@ export default function AddMediaPopUp({ setVisible }: Props) {
 					}
 					{
 						!mediaURI ?
-							<Feather name="camera-off" size={150} color="#C5C6D0" />
+							<TouchableOpacity onPress={pickMedia}>
+								<Feather name="camera-off" size={150} color="#C5C6D0" />
+							</TouchableOpacity>
 						: null
 					}
-					<TouchableOpacity style={styles.addMediaButton} onPress={pickMedia}>
-						<Text style={styles.addMediaText}>Add Media</Text>
-					</TouchableOpacity>
+					{
+						mediaURI ?
+							<TouchableOpacity style={[styles.addMediaButton, {backgroundColor: 'black'}]} onPress={uploadMedia}>
+								<Text style={styles.addMediaText}>Add Media</Text>
+							</TouchableOpacity>
+						:
+							<View style={[styles.addMediaButton, {backgroundColor: 'grey'}]}>
+								<Text style={styles.addMediaText}>Add Media</Text>
+							</View>
+
+					}
 				</View>
 			</View>
 		</Modal>
@@ -111,7 +127,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 22,
-		backgroundColor: 'black',
 	},
 
 	image: {
