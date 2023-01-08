@@ -16,8 +16,8 @@ export default function CaregiverApp() {
       <Tab.Navigator screenOptions={CaregiverAppNavBarOptions}>
         <Tab.Screen name="Home" component={HomeView} />
         <Tab.Screen name="Mood" component={MoodView} />
-        <Tab.Screen name="Schedule" component={ProfileView} />
-        <Tab.Screen name="Profile" component={ScheduleView} />
+        <Tab.Screen name="Schedule" component={ScheduleView} />
+        <Tab.Screen name="Profile" component={ProfileView} />
       </Tab.Navigator>
     </NavigationContainer>
   )
