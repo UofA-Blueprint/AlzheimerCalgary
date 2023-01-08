@@ -4,10 +4,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  FlatList
+  FlatList,
+  Modal
 } from 'react-native'
+import { useState } from 'react'
 
 import ActivityManagerCard from '../../components/ActivityManagerCard'
+import NewActivityForm from '../../components/NewActivityForm'
 
 const mockActivity = [
   { name: 'Painting', type: 'Creative' },
@@ -18,14 +21,32 @@ const mockActivity = [
 ]
 
 export default function Activity(prop: any) {
+  const [modalVisible, setModalVisible] = useState(false)
+
   return (
     <View>
       <View style={styles.container}>
         <Text style={styles.title}>Activity Manager</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setModalVisible(true)}
+        >
           <Text>New Activity</Text>
         </TouchableOpacity>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible)
+        }}
+      >
+        <NewActivityForm
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <TextInput style={styles.input} />
       <FlatList
         data={mockActivity}
