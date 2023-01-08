@@ -18,7 +18,7 @@ export default function ActivityDetail(props: any) {
       </TouchableOpacity>
 
       <Text style={styles.subtitle}>Recent Posts</Text>
-      <ActivityList />
+      <ActivityList navigation={props.navigation} />
     </View>
   )
 }

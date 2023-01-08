@@ -34,7 +34,7 @@ export default function ClientProfile(props: any) {
       </TouchableOpacity>
 
       <Text style={styles.subtitle}>Activities</Text>
-      <ActivityList />
+      <ActivityList navigation={props.navigation} />
     </View>
   )
 }

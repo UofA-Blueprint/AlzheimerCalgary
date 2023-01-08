@@ -9,6 +9,7 @@ import ClientProfile from './views/staff/ClientProfile'
 import Caregiver from './views/staff/Caregiver'
 import NewPost from './views/staff/NewPost'
 import ActivityDetail from './views/staff/ActivityDetail'
+import EditPost from './views/staff/EditPost'
 
 const Stack = createNativeStackNavigator()
 
@@ -24,6 +25,7 @@ export default function StaffApp() {
         <Stack.Screen name="Caregiver" component={Caregiver} />
         <Stack.Screen name="NewPost" component={NewPost} />
         <Stack.Screen name="ActivityDetail" component={ActivityDetail} />
+        <Stack.Screen name="EditPost" component={EditPost} />
       </Stack.Navigator>
     </NavigationContainer>
   )
