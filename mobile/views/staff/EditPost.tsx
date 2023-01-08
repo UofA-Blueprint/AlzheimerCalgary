@@ -3,22 +3,44 @@ import {
   View,
   TextInput,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Modal
 } from 'react-native'
+import { useState } from 'react'
+
+import AddClientModal from '../../components/AddClientModal'
 
 /**
  * @param id: id of activity post used to fetch the rest of the data
  * @returns form to edit the activity post
  */
 export default function EditPost(props: any) {
+  const [modalVisible, setModalVisible] = useState(false)
+
   return (
     <View>
       <Text style={styles.subtitle}>ACTIVITY_NAME_HERE</Text>
       <TextInput style={styles.input} placeholder="Description" />
       <Text style={styles.subtitle}>Participants</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setModalVisible(true)}
+      >
         <Text>+ Add Client</Text>
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible)
+        }}
+      >
+        <AddClientModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <Text style={styles.subtitle}>Add Media</Text>
       <TouchableOpacity style={styles.button}>
         <Text>+ Add file</Text>
