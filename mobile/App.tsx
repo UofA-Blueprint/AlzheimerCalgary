@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Login from './views/Login'
 import CaregiverApp from './CaregiverApp'
 import StaffApp from './StaffApp'
-import User from './interfaces/User'
+import User from './types/User.interface'
 import UserContext from './context/UserContext'
 
 export default function App() {
