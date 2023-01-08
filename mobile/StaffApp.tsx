@@ -5,6 +5,7 @@ import Dashboard from './views/staff/Dashboard'
 import Activity from './views/staff/Activity'
 import Client from './views/staff/Client'
 import Staff from './views/staff/Staff'
+import ClientProfile from './views/staff/ClientProfile'
 
 const Stack = createNativeStackNavigator()
 
@@ -16,6 +17,7 @@ export default function StaffApp() {
         <Stack.Screen name="Activity" component={Activity} />
         <Stack.Screen name="Client" component={Client} />
         <Stack.Screen name="Staff" component={Staff} />
+        <Stack.Screen name="ClientProfile" component={ClientProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   )

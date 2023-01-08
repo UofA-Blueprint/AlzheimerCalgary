@@ -52,7 +52,9 @@ export default function Client(prop: any) {
       <TextInput style={styles.input} />
       <FlatList
         data={mockClients}
-        renderItem={({ item }) => <ClientCard client={item} />}
+        renderItem={({ item }) => (
+          <ClientCard client={item} navigation={prop.navigation} />
+        )}
         keyExtractor={(item) => item.name}
       />
     </View>
