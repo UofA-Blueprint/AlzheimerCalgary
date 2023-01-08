@@ -4,7 +4,10 @@ export default function Dashboard(props: any) {
   return (
     <View>
       <Text style={styles.title}>Dashboard</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => props.navigation.navigate('NewPost')}
+      >
         <Text>Make Post</Text>
       </TouchableOpacity>
       <TouchableOpacity
