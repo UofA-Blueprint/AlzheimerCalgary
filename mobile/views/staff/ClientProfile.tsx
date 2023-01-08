@@ -5,7 +5,14 @@ export default function ClientProfile(props: any) {
     <View style={styles.container}>
       <Text style={styles.title}>{props.route.params.client.name}</Text>
       <Text>Age 48</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          props.navigation.navigate('CaregiverList', {
+            client: props.route.params.client
+          })
+        }
+      >
         <Text>View Caregivers</Text>
       </TouchableOpacity>
 
