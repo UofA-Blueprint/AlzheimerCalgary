@@ -8,7 +8,11 @@ export default function ActivityDetail(props: any) {
       <Text>{props.route.params.activity.type}</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => props.navigation.navigate('NewPost')}
+        onPress={() =>
+          props.navigation.navigate('NewPost', {
+            activity: props.route.params.activity
+          })
+        }
       >
         <Text>Make Post</Text>
       </TouchableOpacity>

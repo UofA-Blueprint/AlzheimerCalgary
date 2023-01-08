@@ -18,7 +18,7 @@ export default function ActivityManagerCard({ activity, navigation }: IProps) {
       <Text>{activity.type}</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('NewPost')}
+        onPress={() => navigation.navigate('NewPost', { activity })}
       >
         <Text>Make post</Text>
       </TouchableOpacity>

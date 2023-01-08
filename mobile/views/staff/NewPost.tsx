@@ -6,13 +6,19 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-export default function NewPost() {
+export default function NewPost(props: any) {
   return (
     <View>
       <Text style={styles.title}>New Post</Text>
-      <TextInput style={styles.input} placeholder="Type" />
-      <TextInput style={styles.input} placeholder="Activity Name" />
-      <TextInput style={styles.input} placeholder="Type" />
+      {!props.route.params && (
+        <TextInput style={styles.input} placeholder="Type" />
+      )}
+      {props.route.params ? (
+        <Text style={styles.subtitle}>{props.route.params.activity.name}</Text>
+      ) : (
+        <TextInput style={styles.input} placeholder="Activity Name" />
+      )}
+      <TextInput style={styles.input} placeholder="Description" />
       <Text style={styles.subtitle}>Participants</Text>
       <TouchableOpacity style={styles.button}>
         <Text>+ Add Client</Text>
