@@ -1,6 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
-
-import Page from '../../types/Page.enum'
+import { Text, View, StyleSheet } from 'react-native'
 
 export default function Activity(prop: any) {
   return (

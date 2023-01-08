@@ -1,13 +1,5 @@
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  TextInput
-} from 'react-native'
+import { Text, View, StyleSheet, FlatList, TextInput } from 'react-native'
 
-import Page from '../../types/Page.enum'
 import ClientCard from '../../components/ClientCard'
 
 const mockClients = [
