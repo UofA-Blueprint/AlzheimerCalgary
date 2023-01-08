@@ -6,6 +6,9 @@ export default function Dashboard(prop: any) {
   return (
     <View>
       <Text style={styles.title}>Dashboard</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text>Make Post</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.container}
         onPress={() => prop.setPage(Page.ACTIVITY)}
@@ -40,5 +43,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 50,
     margin: 50
+  },
+  button: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 50,
+    margin: 50,
+    width: '30%'
   }
 })
