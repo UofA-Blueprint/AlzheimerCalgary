@@ -5,12 +5,6 @@ import Page from '../../types/Page.enum'
 export default function Staff(prop: any) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => prop.setPage(Page.DASHBOARD)}
-      >
-        <Text>Back</Text>
-      </TouchableOpacity>
       <Text style={styles.title}>Staffs</Text>
     </View>
   )
@@ -25,11 +19,5 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
     textAlign: 'center'
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    width: 100
   }
 })

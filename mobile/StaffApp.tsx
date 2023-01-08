@@ -1,25 +1,22 @@
-import { useState } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
 import Dashboard from './views/staff/Dashboard'
 import Activity from './views/staff/Activity'
 import Client from './views/staff/Client'
 import Staff from './views/staff/Staff'
-import Page from './types/Page.enum'
+
+const Stack = createNativeStackNavigator()
 
 export default function StaffApp() {
-  const [page, setPage] = useState<Page>(Page.DASHBOARD)
-
-  const getPage = () => {
-    switch (page) {
-      case Page.DASHBOARD:
-        return <Dashboard setPage={setPage} />
-      case Page.ACTIVITY:
-        return <Activity setPage={setPage} />
-      case Page.CLIENT:
-        return <Client setPage={setPage} />
-      case Page.STAFF:
-        return <Staff setPage={setPage} />
-    }
-  }
-
-  return getPage()
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Activity" component={Activity} />
+        <Stack.Screen name="Client" component={Client} />
+        <Stack.Screen name="Staff" component={Staff} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }

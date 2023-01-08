@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
-import Page from '../../types/Page.enum'
-
-export default function Dashboard(prop: any) {
+export default function Dashboard(props: any) {
   return (
     <View>
       <Text style={styles.title}>Dashboard</Text>
@@ -11,19 +9,19 @@ export default function Dashboard(prop: any) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => prop.setPage(Page.ACTIVITY)}
+        onPress={() => props.navigation.navigate('Activity')}
       >
         <Text>Activities</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => prop.setPage(Page.CLIENT)}
+        onPress={() => props.navigation.navigate('Client')}
       >
         <Text>Clients</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => prop.setPage(Page.STAFF)}
+        onPress={() => props.navigation.navigate('Staff')}
       >
         <Text>Staff</Text>
       </TouchableOpacity>

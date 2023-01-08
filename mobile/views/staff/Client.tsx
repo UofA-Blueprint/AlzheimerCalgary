@@ -24,12 +24,6 @@ export default function Client(prop: any) {
   return (
     <View>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => prop.setPage(Page.DASHBOARD)}
-        >
-          <Text>Back</Text>
-        </TouchableOpacity>
         <Text style={styles.title}>Clients</Text>
       </View>
       <TextInput style={styles.input} />
@@ -51,12 +45,6 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
     textAlign: 'center'
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    width: 100
   },
   input: {
     height: 40,
