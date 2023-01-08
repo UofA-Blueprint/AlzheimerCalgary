@@ -1,6 +1,16 @@
-import { Text, View, StyleSheet, FlatList, TextInput } from 'react-native'
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  Modal
+} from 'react-native'
+import { useState } from 'react'
 
 import ClientCard from '../../components/ClientCard'
+import ClientForm from '../../components/ClientForm'
 
 const mockClients = [
   { name: 'John Appledore', status: 'At home' },
@@ -13,11 +23,32 @@ const mockClients = [
 ]
 
 export default function Client(prop: any) {
+  const [modalVisible, setModalVisible] = useState(false)
+
   return (
     <View>
-      <View style={styles.container}>
+      <View style={styles.header}>
         <Text style={styles.title}>Clients</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text>Add client</Text>
+        </TouchableOpacity>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible)
+        }}
+      >
+        <ClientForm
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <TextInput style={styles.input} />
       <FlatList
         data={mockClients}
@@ -29,7 +60,13 @@ export default function Client(prop: any) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22
+  },
+  header: {
     flexDirection: 'row',
     margin: 20
   },
@@ -43,5 +80,13 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10
+  },
+  button: {
+    backgroundColor: '#FFF',
+    alignSelf: 'center',
+    marginLeft: 25,
+    borderWidth: 1,
+    padding: 10,
+    marginTop: 5
   }
 })
