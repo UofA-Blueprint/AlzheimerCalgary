@@ -8,7 +8,7 @@ export default function ClientProfile(props: any) {
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
-          props.navigation.navigate('CaregiverList', {
+          props.navigation.navigate('Caregiver', {
             client: props.route.params.client
           })
         }
