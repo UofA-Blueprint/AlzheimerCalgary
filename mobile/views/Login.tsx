@@ -79,10 +79,10 @@ const Login = () => {
   const handleLogin = () => {
     if (!invalidPassword) {
       // MOCK FUNCTION
-      if (email == 'caregiver@gmail.com') {
-        userContext?.setUser({ name: 'user 1', role: 'caregiver' })
+      if (email == 'staff@gmail.com') {
+        userContext?.setUser({ name: 'user 1', role: 'staff' })
       } else {
-        userContext?.setUser({ name: 'user 2', role: 'staff' })
+        userContext?.setUser({ name: 'user 2', role: 'caregiver' })
       }
     }
   }
