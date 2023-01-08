@@ -1,8 +1,10 @@
 import { Text, View, StyleSheet, TouchableOpacity, Modal } from 'react-native'
 import { useState } from 'react'
-import CaregiverForm from '../../components/CaregiverForm'
 
-export default function CaregiverList(props: any) {
+import CaregiverForm from '../../components/CaregiverForm'
+import CaregiverList from '../../components/CaregiverList'
+
+export default function Caregiver(props: any) {
   const [modalVisible, setModalVisible] = useState(false)
 
   return (
@@ -29,6 +31,7 @@ export default function CaregiverList(props: any) {
           setModalVisible={setModalVisible}
         />
       </Modal>
+      <CaregiverList />
     </View>
   )
 }

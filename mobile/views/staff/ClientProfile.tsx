@@ -1,4 +1,6 @@
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import ActivityList from '../../components/ActivityList'
+import Activity from './Activity'
 
 export default function ClientProfile(props: any) {
   return (
@@ -33,7 +35,7 @@ export default function ClientProfile(props: any) {
       </TouchableOpacity>
 
       <Text style={styles.subtitle}>Activities</Text>
-      {/* Component: ActivityList */}
+      <ActivityList />
     </View>
   )
 }
