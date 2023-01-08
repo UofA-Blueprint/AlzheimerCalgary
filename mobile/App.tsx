@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import Login from './views/Login'
-import ClientApp from './ClientApp'
+import CaregiverApp from './CaregiverApp'
 import StaffApp from './StaffApp'
 import User from './interfaces/User'
 import UserContext from './context/UserContext'
@@ -16,8 +16,8 @@ export default function App() {
       <UserContext.Provider value={value}>
         {user == null ? (
           <Login />
-        ) : user.role == 'client' ? (
-          <ClientApp />
+        ) : user.role == 'caregiver' ? (
+          <CaregiverApp />
         ) : (
           <StaffApp />
         )}
