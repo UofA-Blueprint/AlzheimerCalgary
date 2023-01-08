@@ -1,23 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Homepage from './components/home/Homepage';
-import Login from './components/Login';
+import React, { useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      {/* <Login/> */}
-      <Homepage />
-      <StatusBar style="auto" />
-    </View>
-  );
+import Login from './views/Login'
+import ClientApp from './ClientApp'
+import StaffApp from './StaffApp'
+
+interface User {
+  name: string
+  role: string
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  const [user, setUser] = useState<User | null>(null)
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      {user == null ? (
+        <Login />
+      ) : user.role == 'client' ? (
+        <ClientApp />
+      ) : (
+        <StaffApp />
+      )}
+    </SafeAreaView>
+  )
+}
