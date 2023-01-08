@@ -1,6 +1,8 @@
+import Role from './Role.enum'
+
 interface User {
   name: string
-  role: string
+  role: Role
 }
 
 export default User

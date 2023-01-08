@@ -5,6 +5,7 @@ import Login from './views/Login'
 import CaregiverApp from './CaregiverApp'
 import StaffApp from './StaffApp'
 import User from './types/User.interface'
+import Role from './types/Role.enum'
 import UserContext from './context/UserContext'
 
 export default function App() {
@@ -16,10 +17,10 @@ export default function App() {
       <UserContext.Provider value={value}>
         {user == null ? (
           <Login />
-        ) : user.role == 'caregiver' ? (
-          <CaregiverApp />
-        ) : (
+        ) : user.role == Role.STAFF ? (
           <StaffApp />
+        ) : (
+          <CaregiverApp />
         )}
       </UserContext.Provider>
     </SafeAreaView>

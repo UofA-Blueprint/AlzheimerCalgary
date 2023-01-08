@@ -10,6 +10,7 @@ import {
 import { useState, useContext } from 'react'
 
 import UserContext from '../context/UserContext'
+import Role from '../types/Role.enum'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -80,9 +81,9 @@ const Login = () => {
     if (!invalidPassword) {
       // MOCK FUNCTION
       if (email == 'staff@gmail.com') {
-        userContext?.setUser({ name: 'user 1', role: 'staff' })
+        userContext?.setUser({ name: 'user 1', role: Role.STAFF })
       } else {
-        userContext?.setUser({ name: 'user 2', role: 'caregiver' })
+        userContext?.setUser({ name: 'user 2', role: Role.CAREGIVER })
       }
     }
   }
