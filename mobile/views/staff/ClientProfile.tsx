@@ -1,6 +1,5 @@
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import ActivityList from '../../components/ActivityList'
-import Activity from './Activity'
 
 export default function ClientProfile(props: any) {
   return (
