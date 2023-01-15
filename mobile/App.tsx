@@ -1,23 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Homepage from './components/home/Homepage';
-import Login from './components/Login';
+import React, { useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+import Login from './views/Login'
+import CaregiverApp from './CaregiverApp'
+import StaffApp from './StaffApp'
+import User from './types/User.interface'
+import Role from './types/Role.enum'
+import UserContext from './context/UserContext'
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      {/* <Login/> */}
-      <Homepage />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [user, setUser] = useState<User | null>(null)
+  const value = { user, setUser }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <UserContext.Provider value={value}>
+        {user == null ? (
+          <Login />
+        ) : user.role == Role.STAFF ? (
+          <StaffApp />
+        ) : (
+          <CaregiverApp />
+        )}
+      </UserContext.Provider>
+    </SafeAreaView>
+  )
+}
