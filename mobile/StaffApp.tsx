@@ -17,10 +17,10 @@ export default function StaffApp() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }}/>
         <Stack.Screen name="Activity" component={Activity} />
         <Stack.Screen name="Client" component={Client} />
-        <Stack.Screen name="Staff" component={Staff} />
+        <Stack.Screen name="Staff" component={Staff} options={{ headerShown: false }}/>
         <Stack.Screen name="ClientProfile" component={ClientProfile} />
         <Stack.Screen name="Caregiver" component={Caregiver} />
         <Stack.Screen name="NewPost" component={NewPost} />
