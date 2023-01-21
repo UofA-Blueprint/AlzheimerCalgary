@@ -1,3 +1,4 @@
+///////////////////////// Import Dependencies //////////////////////////////
 import { useState } from 'react'
 import { 
   Text, 
@@ -10,9 +11,13 @@ import {
   Dimensions } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons } from '@expo/vector-icons'
-import { Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons'
+import StaffFiltersPopUp from '../../components/StaffFiltersPopUp'
+//////////////////////////////////////////////////////////////////////////
 
+////////////////////////// Component /////////////////////////////
 export default function Staff(prop: any) {
+  /*--------------------------------- Mock Data ---------------------------------*/
   const Departments = [
     {
       id: 1,
@@ -165,17 +170,17 @@ export default function Staff(prop: any) {
     },
 
   ]
+  /*----------------------------------------------------------------------------*/
 
-  const [ filteredData, setFilteredData ] = useState(Staff)
+  const [ filteredStaff, setFilteredStaff ] = useState(Staff)
+  const [ searchData, setSearchData ] = useState("")
+  const [ staffFiltersPopUpVisible, setStaffFiltersPopUpVisible ] = useState(false)
 
   const staffViewWidth = Dimensions.get('window').width / 4
   const staffPerRow = (Dimensions.get('window').width - 60) / staffViewWidth  // 60: hypothetical total horizontal padding of the ScrollView
-  const staffRows = filteredData.length / staffPerRow
-
+  const staffRows = filteredStaff.length / staffPerRow
 
   function addStaff() {}
-
-  function showStaffFiltersPopUp() {}
 
   return (
     <SafeAreaView style={styles.root}>
@@ -202,7 +207,7 @@ export default function Staff(prop: any) {
           </View>
         </View>
         <View style={styles.filterButtonFrame}>
-          <TouchableOpacity style={styles.filterButton} onPress={showStaffFiltersPopUp}>
+          <TouchableOpacity style={styles.filterButton} onPress={() => setStaffFiltersPopUpVisible(true)}>
             <Ionicons name="filter" size={30} color="black" />
             <Text style={styles.filterButtonText}>Filters</Text>
           </TouchableOpacity>
@@ -212,10 +217,17 @@ export default function Staff(prop: any) {
       <ScrollView>
 
       </ScrollView>
+      {
+        staffFiltersPopUpVisible ?
+          <StaffFiltersPopUp setVisible={setStaffFiltersPopUpVisible} departments={Departments}/>
+        : null
+      }
     </SafeAreaView>
   )
 }
+//////////////////////////////////////////////////////////////////////////
 
+////////////////////////// Styles /////////////////////////////
 const styles = StyleSheet.create({
   root: {
     height: '100%', 
@@ -312,3 +324,4 @@ const styles = StyleSheet.create({
 
   filtersFrame: {},
 })
+//////////////////////////////////////////////////////////////////////////
