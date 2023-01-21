@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
 import StaffFiltersPopUp from '../../components/StaffFiltersPopUp'
+import CheckBox from '../../components/CheckBox'
 //////////////////////////////////////////////////////////////////////////
 
 ////////////////////////// Component /////////////////////////////
@@ -41,35 +42,11 @@ export default function Staff(prop: any) {
   ]
 
   const OnDuty = [
-    {
-      username: 'Tony Phan',
-      start_time: '2022-02-26T08:37:48.244Z',
-      leave_time: '2022-02-26T16:37:48.244Z'
-    },
-
-    {
-      username: 'Tom Holland',
-      start_time: '2022-02-26T08:37:48.244Z',
-      leave_time: '2022-02-26T16:37:48.244Z',
-    },
-
-    {
-      username: 'Tanya Boothe',
-      start_time: '2022-02-26T08:37:48.244Z',
-      leave_time: '2022-02-26T16:37:48.244Z'
-    },
-
-    {
-      username: 'Peggy Ross',
-      start_time: '2022-02-26T08:37:48.244Z',
-      leave_time: '2022-02-26T16:37:48.244Z'
-    },
-
-    {
-      username: 'Jennifer Smith',
-      start_time: '2022-02-26T08:37:48.244Z',
-      leave_time: '2022-02-26T16:37:48.244Z'
-    },
+    'Tony Phan',
+    'Tom Holland',
+    'Tanya Boothe',
+    'Peggy Ross',
+    'Jennifer Smith'
   ]
 
   const Staff = [
@@ -172,9 +149,25 @@ export default function Staff(prop: any) {
   ]
   /*----------------------------------------------------------------------------*/
 
-  const [ filteredStaff, setFilteredStaff ] = useState(Staff)
-  const [ searchData, setSearchData ] = useState("")
   const [ staffFiltersPopUpVisible, setStaffFiltersPopUpVisible ] = useState(false)
+  const [ filteredStaff, setFilteredStaff ] = useState(Staff)
+  const [ searchedStaff, setSearchedStaff ] = useState("")
+  const [ allStaffFilter, setAllStaffFilter ] = useState(true)
+  const [ onDutyFilter, setOnDutyFilter ] = useState(false)
+  const departmentFiltersStates = {}
+  for (let department of Departments) {
+    departmentFiltersStates[department.id] = useState(true)
+  }
+
+  const departmentRenderItems = Departments.map((department: any) => {
+    const checkBoxValue = departmentFiltersStates[department.id][0]
+    const setCheckBoxValue = departmentFiltersStates[department.id][1]
+    return (
+        <View key={department.id} style={{ marginLeft: 10, marginTop: 10 }}>
+            <CheckBox value={checkBoxValue} setValue={setCheckBoxValue} label={department.name} checkBoxStyle={styles.dropDownCheckbox}/>
+        </View>
+    )
+  })
 
   const staffViewWidth = Dimensions.get('window').width / 4
   const staffPerRow = (Dimensions.get('window').width - 60) / staffViewWidth  // 60: hypothetical total horizontal padding of the ScrollView
@@ -213,13 +206,16 @@ export default function Staff(prop: any) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.filtersFrame}></View>
-      <ScrollView>
-
-      </ScrollView>
       {
         staffFiltersPopUpVisible ?
-          <StaffFiltersPopUp setVisible={setStaffFiltersPopUpVisible} departments={Departments}/>
+          <StaffFiltersPopUp 
+            setVisible={setStaffFiltersPopUpVisible} 
+            allStaffFilter={allStaffFilter} 
+            setAllStaffFilter={setAllStaffFilter}
+            onDutyFilter={onDutyFilter}
+            setOnDutyFilter={setOnDutyFilter}
+            departmentRenderItems={departmentRenderItems}
+          />
         : null
       }
     </SafeAreaView>
@@ -323,5 +319,12 @@ const styles = StyleSheet.create({
   },
 
   filtersFrame: {},
+
+  dropDownCheckbox: {
+    boxSize: 40,
+    boxColor: 'grey',
+    labelSize: 21,
+    labelWeight: 'normal',
+  },
 })
 //////////////////////////////////////////////////////////////////////////

@@ -29,11 +29,11 @@ export default function Dropdown({ label, renderItems, dropDownStyle }: Props) {
     const [ dropped, setDropped ] = useState(false)
 
     return (
-        <View style={[styles.rootFrame, {
+        <View style={{
             backgroundColor: dropDownStyle.rootBackgroundColor, 
             width: dropDownStyle.rootWidth,
             borderRadius: dropDownStyle.rootBorderRadius,
-        }]}>
+        }}>
             <View style={styles.labelAndArrowFrame}>
                 <View style={styles.labelFrame}>
                     <Text style={
@@ -59,16 +59,18 @@ export default function Dropdown({ label, renderItems, dropDownStyle }: Props) {
             </View>
             {
                 dropped ?
-                    <View style={{ width: '100%', marginBottom: 20 }}>
+                    <>
                         <View style={styles.horizontalDivider}></View>
-                        {
-                            renderItems.map((item: any) => {
-                                return (
-                                    item
-                                )
-                            })
-                        }
-                    </View>
+                        <ScrollView contentContainerStyle={{ width: '100%' }}>
+                            {
+                                renderItems.map((item: any) => {
+                                    return (
+                                        item
+                                    )
+                                })
+                            }
+                        </ScrollView>
+                    </>
                 : null
             }
         </View>
@@ -78,10 +80,6 @@ export default function Dropdown({ label, renderItems, dropDownStyle }: Props) {
 
 /////////////////////// Styles /////////////////////////
 const styles = StyleSheet.create({
-    rootFrame: {
-        alignItems: 'center',
-    },
-
     labelAndArrowFrame: {
         flexDirection: 'row',
     },
@@ -89,7 +87,6 @@ const styles = StyleSheet.create({
     labelFrame: {
         width: '80%',
         justifyContent: 'center',
-        paddingLeft: 10,
     },
 
     dropDownArrowFrame: {
@@ -103,7 +100,6 @@ const styles = StyleSheet.create({
         height: 8,
         backgroundColor: 'black',
         marginBottom: 20,
-        marginLeft: 10,
         borderRadius: 20,
     }
 })

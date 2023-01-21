@@ -1,5 +1,4 @@
 ////////// Import Dependencies //////////
-import { useState } from 'react'
 import * as React from 'react'
 import { 
     StyleSheet, 
@@ -16,31 +15,23 @@ import Dropdown from './Dropdown'
 /////////// Configurations ///////////
 interface Props {
 	setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    departments: any;
+    allStaffFilter: Boolean;
+    setAllStaffFilter: any;
+    onDutyFilter: Boolean;
+    setOnDutyFilter: any;
+    departmentRenderItems: any;
 };
 //////////////////////////////////////
 
 //////////////// Component //////////////
-export default function StaffFiltersPopUp({ setVisible, departments }: Props) {
-    const [ allStaffIsSelected, setAllStaffIsSelected ] = useState(true)
-
-    const departmentRenderItems = departments.map((department: any) => {
-        return (
-            <View key={department.id} style={{ marginLeft: 10, marginTop: 10 }}>
-                <CheckBox label={department.name} checkBoxStyle={styles.dropDownCheckbox}/>
-            </View>
-        )
-    })
-
-	function applyFilters() {
-		/* upload the image or video */
-		//////////////////////////////
-
-		/* Then, close the pop-up */
-		setVisible(false)
-	}
-	/////////////
-
+export default function StaffFiltersPopUp({ 
+    setVisible, 
+    allStaffFilter, 
+    setAllStaffFilter, 
+    onDutyFilter,
+    setOnDutyFilter,
+    departmentRenderItems }: Props) 
+{
 	return (
 		<Modal transparent>
 			<View style={styles.popUpOuterFrame}>
@@ -54,11 +45,11 @@ export default function StaffFiltersPopUp({ setVisible, departments }: Props) {
                         </View>
                     </View>
                     <View style={styles.checkboxContainer}>
-                        <View style={{ marginLeft: 20, marginTop: 20 }}><CheckBox label='All Staff' checkBoxStyle={styles.checkbox}/></View>
-                        <View style={{ marginLeft: 20, marginTop: 20 }}><CheckBox label='On Duty' checkBoxStyle={styles.checkbox}/></View>
+                        <View style={{ marginLeft: 20, marginTop: 20 }}><CheckBox value={allStaffFilter} setValue={setAllStaffFilter} label='All Staff' checkBoxStyle={styles.checkbox}/></View>
+                        <View style={{ marginLeft: 20, marginTop: 20 }}><CheckBox value={onDutyFilter} setValue={setOnDutyFilter} label='On Duty' checkBoxStyle={styles.checkbox}/></View>
                     </View>
                     <View style={styles.dropdownContainer}>
-                        <Dropdown label='All Departments' renderItems={departmentRenderItems} dropDownStyle={styles.dropdown}/>
+                        <Dropdown label='Departments:' renderItems={departmentRenderItems} dropDownStyle={styles.dropdown}/>
                     </View>
 				</View>
 			</View>
@@ -116,31 +107,13 @@ const styles = StyleSheet.create({
 
     checkbox: {
         boxSize: 40,
-        boxColor: 'black',
+        boxColor: 'grey',
         labelSize: 21,
-        labelColor: 'black',
-        labelWeight: 'normal',
-    },
-
-    dropDownCheckbox: {
-        boxSize: 40,
-        boxColor: 'black',
-        labelSize: 21,
-        labelColor: 'grey',
         labelWeight: 'normal',
     },
 
     dropdownContainer: {
-        width: 300,
         marginTop: 20,
-        shadowColor: "black",
-        shadowOffset: {
-        width: 0,
-        height: 10,
-        },
-        shadowOpacity: 0.51,
-        shadowRadius: 13.16,
-        elevation: 20,
     },
 
     dropdown: {
@@ -149,9 +122,7 @@ const styles = StyleSheet.create({
         labelWeight: 'normal',
         labelColor: 'black',
         dropArrowSize: 50,
-        dropArrowColor: 'grey',
-        rootBackgroundColor: 'snow',
-        rootBorderRadius: 20,
+        dropArrowColor: 'black',
     },
 });
 ////////////////////////////////////////
