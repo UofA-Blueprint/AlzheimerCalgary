@@ -23,154 +23,137 @@ export default function Staff(prop: any) {
   /*--------------------------------- Mock Data ---------------------------------*/
   const Departments = [
     {
-      id: 1,
+      did: 1,
       name: 'Finance'
     },
 
     {
-      id: 2,
+      did: 2,
       name: 'Customer Service'
     },
 
     {
-      id: 3,
+      did: 3,
       name: 'Activities Management'
     },
 
     {
-      id: 4,
+      did: 4,
       name: 'Management'
     },
   ]
 
   const OnDuty = [
     {
-      id: 1,
       staff: 'Tony Phan'
     },
     {
-      id: 2,
       staff: 'Tom Holland'
     },
     {
-      id: 3,
       staff: 'Tanya Boothe'
     },
     {
-      id: 4,
       staff: 'Peggy Ross',
     },
     {
-      id: 5,
       staff: 'Jennifer Smith'
     },
   ]
 
   const Staff = [
     {
-      id: 1,
       username: 'John Smith',
       role: 'staff',
-      department: 1,
+      did: 1,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-01-01'
     },
 
     {
-      id: 2,
       username: 'Clark Kent',
       role: 'staff',
-      department: 2,
+      did: 2,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-01'
     },
 
     {
-      id: 3,
       username: 'Lucas Milton',
       role: 'staff',
-      department: 3,
+      did: 3,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-15'
     },
 
     {
-      id: 4,
       username: 'Tom Holland',
       role: 'staff',
-      department: 4,
+      did: 4,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-09'
     },
 
     {
-      id: 5,
       username: 'Tanya Boothe',
       role: 'staff',
-      department: 1,
+      did: 1,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-05-01'
     },
 
     {
-      id: 6,
       username: 'Tony Phan',
       role: 'staff',
-      department: 2,
+      did: 2,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-05-05'
     },
 
     {
-      id: 7,
       username: 'Peggy Ross',
       role: 'staff',
-      department: 3,
+      did: 3,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-15'
     },
 
     {
-      id: 8,
       username: 'Nicole Collins',
       role: 'staff',
-      department: 4,
+      did: 4,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-09'
     },
 
     {
-      id: 9,
       username: 'Mark Jamison',
       role: 'staff',
-      department: 1,
+      did: 1,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-01-01'
     },
 
     {
-      id: 10,
       username: 'Frank Lampard',
       role: 'staff',
-      department: 2,
+      did: 2,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-01'
     },
 
     {
-      id: 11,
       username: 'Jennifer Smith',
       role: 'staff',
-      department: 3,
+      did: 3,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-15'
     },
 
     {
-      id: 12,
       username: 'Richard Holland',
       role: 'staff',
-      department: 4,
+      did: 4,
       hash_password: 'a;rgijae;ogjao;erigj',
       created: '2023-02-09'
     },
@@ -185,14 +168,14 @@ export default function Staff(prop: any) {
   const [ onDutyFilter, setOnDutyFilter ] = useState(false)
   const departmentFilters = {}
   for (let department of Departments) {
-    departmentFilters[department.id] = useState(true)
+    departmentFilters[department.did] = useState(true)
   }
 
   const departmentRenderItems = Departments.map((department: any) => {
-    const checkBoxValue = departmentFilters[department.id][0]
-    const setCheckBoxValue = departmentFilters[department.id][1]
+    const checkBoxValue = departmentFilters[department.did][0]
+    const setCheckBoxValue = departmentFilters[department.did][1]
     return (
-        <View key={department.id} style={{ marginLeft: 10, marginTop: 10 }}>
+        <View key={department.did} style={{ marginLeft: 10, marginTop: 10 }}>
             <CheckBox value={checkBoxValue} setValue={setCheckBoxValue} label={department.name} checkBoxStyle={styles.dropDownCheckbox}/>
         </View>
     )
@@ -202,7 +185,7 @@ export default function Staff(prop: any) {
     return (
       <TouchableOpacity style={styles.staffView}>
         <Text style={styles.staffNameText}>{staff.username}</Text>
-        <Text style={styles.staffDepartmentText}>Department: {Departments.find((department) => {return department.id === staff.department}).name}</Text>
+        <Text style={styles.staffDepartmentText}>Department: {Departments.find((department) => {return department.did === staff.did}).name}</Text>
         <View style={styles.staffStatusFrame}>
           <Text style={styles.staffStatusText}>Status:</Text>
           {
@@ -240,10 +223,10 @@ export default function Staff(prop: any) {
       setAllStaffFilter(true)
       setFilteredStaff(Staff)
     }
-    for (let id of Object.keys(departmentFilters)) {
-      if (!(departmentFilters[id][0])) {
+    for (let did of Object.keys(departmentFilters)) {
+      if (!(departmentFilters[did][0])) {
         filteredData = filteredData.filter((staff) => {
-          return staff.department.toString() !== id
+          return staff.did.toString() !== did
         })
         setFilteredStaff(filteredData)
       }
