@@ -1,5 +1,5 @@
 ///////////////////////// Import Dependencies //////////////////////////////
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   Text, 
   ScrollView,
@@ -12,6 +12,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
+
 import StaffFiltersPopUp from '../../components/StaffFiltersPopUp'
 import CheckBox from '../../components/CheckBox'
 //////////////////////////////////////////////////////////////////////////
@@ -42,15 +44,31 @@ export default function Staff(prop: any) {
   ]
 
   const OnDuty = [
-    'Tony Phan',
-    'Tom Holland',
-    'Tanya Boothe',
-    'Peggy Ross',
-    'Jennifer Smith'
+    {
+      id: 1,
+      staff: 'Tony Phan'
+    },
+    {
+      id: 2,
+      staff: 'Tom Holland'
+    },
+    {
+      id: 3,
+      staff: 'Tanya Boothe'
+    },
+    {
+      id: 4,
+      staff: 'Peggy Ross',
+    },
+    {
+      id: 5,
+      staff: 'Jennifer Smith'
+    },
   ]
 
   const Staff = [
     {
+      id: 1,
       username: 'John Smith',
       role: 'staff',
       department: 1,
@@ -59,6 +77,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 2,
       username: 'Clark Kent',
       role: 'staff',
       department: 2,
@@ -67,6 +86,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 3,
       username: 'Lucas Milton',
       role: 'staff',
       department: 3,
@@ -75,6 +95,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 4,
       username: 'Tom Holland',
       role: 'staff',
       department: 4,
@@ -83,6 +104,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 5,
       username: 'Tanya Boothe',
       role: 'staff',
       department: 1,
@@ -91,6 +113,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 6,
       username: 'Tony Phan',
       role: 'staff',
       department: 2,
@@ -99,6 +122,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 7,
       username: 'Peggy Ross',
       role: 'staff',
       department: 3,
@@ -107,6 +131,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 8,
       username: 'Nicole Collins',
       role: 'staff',
       department: 4,
@@ -115,6 +140,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 9,
       username: 'Mark Jamison',
       role: 'staff',
       department: 1,
@@ -123,6 +149,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 10,
       username: 'Frank Lampard',
       role: 'staff',
       department: 2,
@@ -131,6 +158,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 11,
       username: 'Jennifer Smith',
       role: 'staff',
       department: 3,
@@ -139,6 +167,7 @@ export default function Staff(prop: any) {
     },
 
     {
+      id: 12,
       username: 'Richard Holland',
       role: 'staff',
       department: 4,
@@ -150,18 +179,18 @@ export default function Staff(prop: any) {
   /*----------------------------------------------------------------------------*/
 
   const [ staffFiltersPopUpVisible, setStaffFiltersPopUpVisible ] = useState(false)
-  const [ filteredStaff, setFilteredStaff ] = useState(Staff)
+  const [ FilteredStaff, setFilteredStaff ] = useState(Staff)
   const [ searchedStaff, setSearchedStaff ] = useState("")
   const [ allStaffFilter, setAllStaffFilter ] = useState(true)
   const [ onDutyFilter, setOnDutyFilter ] = useState(false)
-  const departmentFiltersStates = {}
+  const departmentFilters = {}
   for (let department of Departments) {
-    departmentFiltersStates[department.id] = useState(true)
+    departmentFilters[department.id] = useState(true)
   }
 
   const departmentRenderItems = Departments.map((department: any) => {
-    const checkBoxValue = departmentFiltersStates[department.id][0]
-    const setCheckBoxValue = departmentFiltersStates[department.id][1]
+    const checkBoxValue = departmentFilters[department.id][0]
+    const setCheckBoxValue = departmentFilters[department.id][1]
     return (
         <View key={department.id} style={{ marginLeft: 10, marginTop: 10 }}>
             <CheckBox value={checkBoxValue} setValue={setCheckBoxValue} label={department.name} checkBoxStyle={styles.dropDownCheckbox}/>
@@ -169,11 +198,59 @@ export default function Staff(prop: any) {
     )
   })
 
-  const staffViewWidth = Dimensions.get('window').width / 4
-  const staffPerRow = (Dimensions.get('window').width - 60) / staffViewWidth  // 60: hypothetical total horizontal padding of the ScrollView
-  const staffRows = filteredStaff.length / staffPerRow
+  const StaffView = ({ staff }) => {
+    return (
+      <TouchableOpacity style={styles.staffView}>
+        <Text style={styles.staffNameText}>{staff.username}</Text>
+        <Text style={styles.staffDepartmentText}>Department: {Departments.find((department) => {return department.id === staff.department}).name}</Text>
+        <View style={styles.staffStatusFrame}>
+          <Text style={styles.staffStatusText}>Status:</Text>
+          {
+            OnDuty.find((element) => {return element.staff === staff.username}) ?
+              <FontAwesome name="circle" size={30} color="#99EDC3" />
+            : <FontAwesome name="circle" size={30} color="grey" />
+          }
+        </View>
+      </TouchableOpacity>
+  )}
 
-  function addStaff() {}
+  function staffSearchHandler(text: any) {
+    if (text) {
+      const filteredData = FilteredStaff.filter((staff) => {return staff.username.includes(text)})
+      setFilteredStaff(filteredData)
+      setSearchedStaff(text)
+    } else {
+      setFilteredStaff(Staff)
+      setSearchedStaff(text)
+    }
+  }
+
+  useEffect(() => {
+    let filteredData = FilteredStaff
+    if (onDutyFilter) {
+      filteredData = filteredData.filter((staff) => {
+        return OnDuty.find((element) => {return element.staff === staff.username})
+      })
+      setFilteredStaff(filteredData)
+    }
+    if (allStaffFilter && !onDutyFilter) {
+      setFilteredStaff(Staff)
+    }
+    if (!onDutyFilter) {
+      setAllStaffFilter(true)
+      setFilteredStaff(Staff)
+    }
+    for (let id of Object.keys(departmentFilters)) {
+      if (!(departmentFilters[id][0])) {
+        filteredData = filteredData.filter((staff) => {
+          return staff.department.toString() !== id
+        })
+        setFilteredStaff(filteredData)
+      }
+    }
+  }, [allStaffFilter, onDutyFilter, JSON.stringify(departmentFilters)])
+
+  function openAddStaffScreen() {}
 
   return (
     <SafeAreaView style={styles.root}>
@@ -187,7 +264,7 @@ export default function Staff(prop: any) {
           <Text style={styles.title}>STAFF</Text>
         </View>
         <View style={styles.addStaffFrame}>
-          <TouchableOpacity onPress={addStaff}>
+          <TouchableOpacity onPress={openAddStaffScreen}>
             <Ionicons name="person-add" size={35} color="snow"/>
           </TouchableOpacity>
         </View>
@@ -196,7 +273,14 @@ export default function Staff(prop: any) {
         <View style={styles.searchOuterFrame}>
           <View style={styles.searchInnerFrame}>
             <Feather name="search" size={30} color="white" />
-            <TextInput style={styles.searchInputField} placeholder="Search staff" placeholderTextColor='grey' autoCorrect={false}/>
+            <TextInput 
+              style={styles.searchInputField} 
+              placeholder="Search staff" 
+              placeholderTextColor='grey' 
+              value={searchedStaff}
+              onChangeText={(text) => staffSearchHandler(text)}
+              autoCorrect={false}
+            />
           </View>
         </View>
         <View style={styles.filterButtonFrame}>
@@ -218,6 +302,15 @@ export default function Staff(prop: any) {
           />
         : null
       }
+      <ScrollView>
+        <View style={styles.staffContainer}>
+          {
+            FilteredStaff.map((staff) => {
+              return (<StaffView key={staff.username} staff={staff}/>)
+            })
+          }
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -318,13 +411,60 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
 
-  filtersFrame: {},
-
   dropDownCheckbox: {
     boxSize: 40,
     boxColor: 'grey',
     labelSize: 21,
     labelWeight: 'normal',
+  },
+
+  staffView: {
+    width: 250,
+    paddingLeft: 20,
+    paddingVertical: 20,
+    backgroundColor: 'white',
+    margin: 40,
+    borderRadius: 20,
+    shadowColor: "grey",
+    shadowOffset: {
+      width: 8,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    elevation: 20,
+  },
+
+  staffNameText: {
+    fontSize: 23,
+    fontWeight: 'bold',
+  },
+
+  staffDepartmentText: {
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'grey'
+  },
+
+  staffStatusFrame: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+
+  staffStatusText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginRight: 10,
+    color: 'grey',
+  },
+
+  staffContainer: {
+    width: '100%',
+    paddingVertical: 30,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
 })
 //////////////////////////////////////////////////////////////////////////
