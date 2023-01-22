@@ -183,7 +183,7 @@ export default function Staff(prop: any) {
 
   const StaffView = ({ staff }) => {
     return (
-      <TouchableOpacity style={styles.staffView}>
+      <TouchableOpacity style={styles.staffView} onPress={() => {prop.navigation.navigate('StaffBio')}}>
         <Text style={styles.staffNameText}>{staff.username}</Text>
         <Text style={styles.staffDepartmentText}>Department: {Departments.find((department) => {return department.did === staff.did}).name}</Text>
         <View style={styles.staffStatusFrame}>
@@ -233,7 +233,9 @@ export default function Staff(prop: any) {
     }
   }, [allStaffFilter, onDutyFilter, JSON.stringify(departmentFilters)])
 
-  function openAddStaffScreen() {}
+  function openAddStaffScreen() {
+    prop.navigation.navigate('AddStaff')
+  }
 
   return (
     <SafeAreaView style={styles.root}>
