@@ -9,11 +9,14 @@ import {
 import { useState } from 'react'
 
 import AddClientModal from '../../components/AddClientModal'
+import AddMediaPopUp from '../../components/AddMediaPopUp'
 
 export default function NewPost(props: any) {
   const [modalVisible, setModalVisible] = useState(false)
+  const [addMediaPopUpVisible, setAddMediaPopUpVisible] = useState(false)
 
   return (
+    <>
     <View>
       <Text style={styles.title}>New Post</Text>
       {!props.route.params && (
@@ -46,13 +49,24 @@ export default function NewPost(props: any) {
         />
       </Modal>
       <Text style={styles.subtitle}>Add Media</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text>+ Add file</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.submitButton}>
-        <Text>Post Activity</Text>
-      </TouchableOpacity>
+      <View style={{alignItems: 'center'}}>
+        <TouchableOpacity style={styles.button}>
+          <Text>+ Add file</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.addMediaButton} onPress={() => setAddMediaPopUpVisible(true)}>
+          <Text style={{color: 'white'}}>+ Add Media</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.submitButton}>
+          <Text>Post Activity</Text>
+        </TouchableOpacity>
+      </View>
     </View>
+    {
+      addMediaPopUpVisible ?
+        <AddMediaPopUp setVisible={setAddMediaPopUpVisible}/>
+      : null
+    }
+    </>
   )
 }
 
@@ -64,9 +78,17 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 5
   },
+  addMediaButton: {
+    marginTop: 30,
+    backgroundColor: 'black',
+    width: 100,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   submitButton: {
     backgroundColor: '#FFF',
-    alignSelf: 'flex-end',
+    marginTop: 30,
     borderWidth: 1,
     padding: 10,
     margin: 15
