@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as React from 'react';
 import { StyleSheet, Modal, View, Image, TouchableOpacity, Text} from 'react-native';
 import * as MediaPicker from 'expo-image-picker';
-import VideoPlayer from 'react-native-video-controls';
+import { Video } from 'expo-av';
 import { EvilIcons, Feather } from '@expo/vector-icons';
 ////////////////////////////////////////
 
@@ -61,7 +61,15 @@ export default function AddMediaPopUp({ setVisible }: Props) {
 					{
 						mediaURI && mediaType === "video" ?
 							<View style={{width: '80%', height: 190}}>
-								<VideoPlayer controls={true} source={{ uri: mediaURI }} style={styles.video}/>
+								<Video
+									style={styles.video}
+									source={{
+										uri: mediaURI
+									}}
+									useNativeControls={true}
+									resizeMode="contain"
+									isLooping={false}
+								/>
 							</View>
 						: null
 					}
