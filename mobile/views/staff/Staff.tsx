@@ -7,8 +7,7 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   TextInput,
-  StatusBar,
-  Dimensions } from 'react-native'
+  StatusBar } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
@@ -239,7 +238,7 @@ export default function Staff(prop: any) {
 
   return (
     <SafeAreaView style={styles.root}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <TouchableOpacity style={styles.backToDashboardButton} onPress={() => prop.navigation.goBack()}>
         <Ionicons name="arrow-back-circle" size={40} color="snow" />
         <Text style={styles.dashboardText}>Dashboard</Text>
@@ -309,6 +308,7 @@ const styles = StyleSheet.create({
   },
 
   backToDashboardButton: {
+    marginTop: 20,
     marginLeft: 30,
     marginBottom: 10,
     flexDirection: 'row',

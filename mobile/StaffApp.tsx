@@ -21,7 +21,7 @@ export default function StaffApp() {
       <Stack.Navigator>
         <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }}/>
         <Stack.Screen name="Activity" component={Activity} />
-        <Stack.Screen name="Client" component={Client} />
+        <Stack.Screen name="Client" component={Client} options={{ headerShown: false }}/>
         <Stack.Screen name="Staff" component={Staff} options={{ headerShown: false }}/>
         <Stack.Screen name="ClientProfile" component={ClientProfile} />
         <Stack.Screen name="Caregiver" component={Caregiver} />
