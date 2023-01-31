@@ -427,8 +427,6 @@ const styles = StyleSheet.create({
   staffDepartmentText: {
     marginTop: 10,
     fontSize: 20,
-    fontWeight: 'bold',
-    color: 'grey'
   },
 
   staffStatusFrame: {
@@ -439,7 +437,6 @@ const styles = StyleSheet.create({
 
   staffStatusText: {
     fontSize: 20,
-    fontWeight: 'bold',
     marginRight: 10,
     color: 'grey',
   },

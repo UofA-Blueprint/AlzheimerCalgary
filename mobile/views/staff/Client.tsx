@@ -157,7 +157,9 @@ export default function Client(prop: any) {
   const [ FilteredClients, setFilteredClients ] = useState(Clients)
   const [ searchedClient, setSearchedClient ] = useState("")
 
-  function openAddClientScreen () {}
+  function openAddClientScreen () {
+    prop.navigation.navigate('AddClient');
+  }
 
   function clientSearchHandler(text: any) {
     if (text) {
@@ -191,9 +193,9 @@ export default function Client(prop: any) {
 
   return (
     <SafeAreaView style={styles.root}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
       <TouchableOpacity style={styles.backToDashboardButton} onPress={() => prop.navigation.goBack()}>
-        <Ionicons name="arrow-back-circle" size={40} color="snow" />
+        <Ionicons name="arrow-back-circle" size={40} color="black" />
         <Text style={styles.dashboardText}>Dashboard</Text>
       </TouchableOpacity>
       <View style={styles.titleAndAddClientFrame}>
@@ -202,14 +204,14 @@ export default function Client(prop: any) {
         </View>
         <View style={styles.addClientFrame}>
           <TouchableOpacity onPress={openAddClientScreen}>
-            <Ionicons name="person-add" size={35} color="snow"/>
+            <Ionicons name="person-add" size={35} color="black"/>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.searchAndFilterFrame}>
         <View style={styles.searchOuterFrame}>
           <View style={styles.searchInnerFrame}>
-            <Feather name="search" size={30} color="white" />
+            <Feather name="search" size={30} color="#C5C6D0" />
             <TextInput 
               style={styles.searchInputField} 
               placeholder="Search client" 
@@ -222,7 +224,7 @@ export default function Client(prop: any) {
         </View>
         <View style={styles.filterButtonFrame}>
           <TouchableOpacity style={styles.filterButton} onPress={() => setClientFiltersPopUpVisible(true)}>
-            <Ionicons name="filter" size={30} color="black" />
+            <Ionicons name="filter" size={30} color="snow" />
             <Text style={styles.filterButtonText}>Filters</Text>
           </TouchableOpacity>
         </View>
@@ -243,7 +245,7 @@ export default function Client(prop: any) {
 const styles = StyleSheet.create({
   root: {
     height: '100%', 
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   },
 
   backToDashboardButton: {
@@ -256,7 +258,7 @@ const styles = StyleSheet.create({
 
   dashboardText: {
     fontSize: 22,
-    color: 'snow',
+    color: 'black',
     marginLeft: 15
   },
 
@@ -274,7 +276,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 50,
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
   },
 
@@ -300,16 +302,16 @@ const styles = StyleSheet.create({
   searchInnerFrame: {
     width: '95%',
     height: 60,
-    borderBottomWidth: 2,
-    borderColor: 'snow',
     flexDirection: 'row',
+    borderBottomWidth: 2,
+    borderColor: '#C5C6D0',
     alignItems: 'center',
   },
 
   searchInputField: {
     paddingLeft: 15,
     fontSize: 19,
-    color: 'snow',
+    color: 'black',
   },
 
   filterButtonFrame: {
@@ -324,7 +326,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#C5C6D0',
+    backgroundColor: 'black',
     borderRadius: 20,
     paddingLeft: 20,
   },
@@ -332,6 +334,7 @@ const styles = StyleSheet.create({
   filterButtonText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'snow',
     marginLeft: 15,
   },
 
@@ -348,7 +351,7 @@ const styles = StyleSheet.create({
       height: 12,
     },
     shadowOpacity: 0.58,
-    elevation: 20,
+    elevation: 22,
   },
 
   clientNameText: {
@@ -359,8 +362,7 @@ const styles = StyleSheet.create({
   clientBirthdayText: {
     marginTop: 10,
     fontSize: 20,
-    fontWeight: 'bold',
-    color: 'grey'
+    color: 'black'
   },
 
   clientStatusFrame: {
@@ -371,7 +373,6 @@ const styles = StyleSheet.create({
 
   clientStatusText: {
     fontSize: 20,
-    fontWeight: 'bold',
     marginRight: 10,
     color: 'grey',
   },
