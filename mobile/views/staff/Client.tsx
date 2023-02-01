@@ -1,3 +1,4 @@
+///////////////////////////// Import Dependencies //////////////////////////////
 import { 
   Text, 
   ScrollView,
@@ -12,7 +13,12 @@ import { Feather } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
 import { useState, useEffect } from 'react'
 
+import ClientFiltersPopUp from  '../../components/ClientFiltersPopUp'
+////////////////////////////////////////////////////////////////////////////
+
+////////////////////////// Component ////////////////////////////
 export default function Client(prop: any) {
+  //////// Mock Data ////////
   const Clients = [
     {
       cid: 1,
@@ -152,10 +158,19 @@ export default function Client(prop: any) {
       cid: 10
     },
   ]
+  /////////////////////////
 
   const [ clientFiltersPopUpVisible, setClientFiltersPopUpVisible ] = useState(false)
   const [ FilteredClients, setFilteredClients ] = useState(Clients)
   const [ searchedClient, setSearchedClient ] = useState("")
+  const [ allClientsFilter, setAllClientsFilter ] = useState(true)
+  const [ onCampusFilter, setOnCampusFilter ] = useState(false)
+  const [ offCampusFilter, setOffCampusFilter ] = useState(false)
+  const stateTracker = {
+    allClients: true,
+    onCampus: false,
+    offCampus: false
+  }
 
   function openAddClientScreen () {
     prop.navigation.navigate('AddClient');
@@ -174,6 +189,56 @@ export default function Client(prop: any) {
       setSearchedClient(text)
     }
   }
+
+  useEffect(() => {
+    let filteredData = Clients
+    if (onCampusFilter && (stateTracker.allClients || stateTracker.offCampus)) {
+      filteredData = filteredData.filter((client) => {
+        return OnCampus.find((element) => {return element.cid === client.cid})
+      })
+      stateTracker.onCampus = true
+      stateTracker.allClients = false
+      setAllClientsFilter(false)
+      stateTracker.offCampus = false
+      setOffCampusFilter(false)
+      setFilteredClients(filteredData)
+    }
+    if (offCampusFilter && (stateTracker.allClients || stateTracker.onCampus)) {
+      filteredData = []
+      for (let client of Clients) {
+        let isOffCampus = true
+        for (let element of OnCampus) {
+          if (client.cid === element.cid) {
+            isOffCampus = false
+            break
+          }
+        }
+        if (isOffCampus) {
+          filteredData.push(client)
+        }
+      }
+      stateTracker.offCampus = true
+      stateTracker.onCampus = false
+      setOnCampusFilter(false)
+      stateTracker.allClients = false
+      setAllClientsFilter(false)
+      setFilteredClients(filteredData)
+    }
+    if (allClientsFilter && !stateTracker.onCampus && !stateTracker.offCampus) {
+      stateTracker.allClients = true
+      setOffCampusFilter(false)
+      setOffCampusFilter(false)
+      setFilteredClients(Clients)
+    }
+    if (allClientsFilter && (stateTracker.onCampus || stateTracker.offCampus)) {
+      stateTracker.allClients = true
+      stateTracker.onCampus = false
+      setOnCampusFilter(false)
+      stateTracker.offCampus = false
+      setOffCampusFilter(false)
+      setFilteredClients(Clients)
+    }
+  }, [allClientsFilter, onCampusFilter, offCampusFilter])
 
   const ClientView = ({ client }) => {
     return (
@@ -229,6 +294,19 @@ export default function Client(prop: any) {
           </TouchableOpacity>
         </View>
       </View>
+      {
+        clientFiltersPopUpVisible ?
+          <ClientFiltersPopUp 
+            setVisible={setClientFiltersPopUpVisible} 
+            allClientsFilter={allClientsFilter} 
+            setAllClientsFilter={setAllClientsFilter}
+            onCampusFilter={onCampusFilter}
+            setOnCampusFilter={setOnCampusFilter}
+            offCampusFilter={offCampusFilter}
+            setOffCampusFilter={setOffCampusFilter}
+          />
+        : null
+      }
       <ScrollView>
         <View style={styles.clientsContainer}>
           {
@@ -241,7 +319,9 @@ export default function Client(prop: any) {
     </SafeAreaView>
   )
 }
+//////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////// Styles //////////////////////////
 const styles = StyleSheet.create({
   root: {
     height: '100%', 
@@ -393,3 +473,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 })
+///////////////////////////////////////////////////////////
