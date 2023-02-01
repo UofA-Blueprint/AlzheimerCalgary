@@ -200,7 +200,7 @@ export default function Client(prop: any) {
       </TouchableOpacity>
       <View style={styles.titleAndAddClientFrame}>
         <View style={styles.titleFrame}>
-          <Text style={styles.title}>Clients</Text>
+          <Text style={styles.title}>CLIENTS</Text>
         </View>
         <View style={styles.addClientFrame}>
           <TouchableOpacity onPress={openAddClientScreen}>
@@ -211,7 +211,7 @@ export default function Client(prop: any) {
       <View style={styles.searchAndFilterFrame}>
         <View style={styles.searchOuterFrame}>
           <View style={styles.searchInnerFrame}>
-            <Feather name="search" size={30} color="#C5C6D0" />
+            <Feather name="search" size={30} color="grey" />
             <TextInput 
               style={styles.searchInputField} 
               placeholder="Search client" 
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     borderBottomWidth: 2,
-    borderColor: '#C5C6D0',
+    borderColor: 'black',
     alignItems: 'center',
   },
 
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'grey',
     borderRadius: 20,
     paddingLeft: 20,
   },
