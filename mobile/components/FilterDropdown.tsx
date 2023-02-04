@@ -13,7 +13,7 @@ interface Props {
 //////////////////////////////////////
 
 /////////////////////// Component /////////////////////////
-export default function Dropdown({ label, renderItems, dropDownStyle }: Props) {
+export default function FilterDropdown({ label, renderItems, dropDownStyle }: Props) {
     /*
         This is a self-made component that has the following style attributes:
             - rootBackgroundColor: the background color of the dropdown box
