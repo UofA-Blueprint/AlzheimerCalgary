@@ -251,14 +251,14 @@ export default function Staff(prop: any) {
   const [ onDutyFilter, setOnDutyFilter ] = useState(false)
   const departmentFilters = {}
   for (let department of Departments) {
-    departmentFilters[department.departmentId] = useState(true)
+    departmentFilters[department.did] = useState(true)
   }
 
   const departmentRenderItems = Departments.map((department: any) => {
-    const checkBoxValue = departmentFilters[department.departmentId][0]
-    const setCheckBoxValue = departmentFilters[department.departmentId][1]
+    const checkBoxValue = departmentFilters[department.did][0]
+    const setCheckBoxValue = departmentFilters[department.did][1]
     return (
-        <View key={department.departmentId} style={{ marginLeft: 10, marginTop: 10 }}>
+        <View key={department.did} style={{ marginLeft: 10, marginTop: 10 }}>
             <CheckBox value={checkBoxValue} setValue={setCheckBoxValue} label={department.name} checkBoxStyle={styles.dropDownCheckbox}/>
         </View>
     )
