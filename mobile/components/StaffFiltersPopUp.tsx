@@ -9,7 +9,7 @@ import {
     } from 'react-native'
 import { EvilIcons } from '@expo/vector-icons'
 import CheckBox from './CheckBox'
-import Dropdown from './Dropdown'
+import FilterDropdown from './FilterDropdown'
 ////////////////////////////////////////
 
 /////////// Configurations ///////////
@@ -49,7 +49,7 @@ export default function StaffFiltersPopUp({
                         <View style={{ marginLeft: 20, marginTop: 20 }}><CheckBox value={onDutyFilter} setValue={setOnDutyFilter} label='On Duty' checkBoxStyle={styles.checkbox}/></View>
                     </View>
                     <View style={styles.dropdownContainer}>
-                        <Dropdown label='Departments:' renderItems={departmentRenderItems} dropDownStyle={styles.dropdown}/>
+                        <FilterDropdown label='Departments:' renderItems={departmentRenderItems} dropDownStyle={styles.dropdown}/>
                     </View>
 				</View>
 			</View>
