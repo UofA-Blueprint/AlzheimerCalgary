@@ -31,7 +31,7 @@ export default function StaffApp() {
         <Stack.Screen name="ActivityDetail" component={ActivityDetail} />
         <Stack.Screen name="EditPost" component={EditPost} />
         <Stack.Screen name="AddStaff" component={AddStaff} options={{ headerShown: false }}/>
-        <Stack.Screen name="StaffBio" component={StaffBio} options={{ title: 'Staff Bio' }}/>
+        <Stack.Screen name="StaffBio" component={StaffBio} options={{ headerShown: false }}/>
         <Stack.Screen name="ClientBio" component={ClientBio} options={{ title: 'Client Bio' }}/>
         <Stack.Screen name="AddClient" component={AddClient} options={{ title: 'Add Client' }}/>
       </Stack.Navigator>
