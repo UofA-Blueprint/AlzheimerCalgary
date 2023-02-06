@@ -1,11 +1,12 @@
 ///////////////// Import Dependencies ////////////////
 import {
+    Alert,
     Text, 
     ScrollView,
     View, 
     StyleSheet, 
     TouchableOpacity, 
-    TextInput,
+    Linking,
     StatusBar } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons } from '@expo/vector-icons'
@@ -101,6 +102,35 @@ export default function StaffBio(prop: any) {
         }
     }
 
+    function openEmailApp() {
+        Linking.openURL('mailto:' + staff.contactEmail)
+    }
+
+    function openUpdateStaffScreen() {
+        prop.navigation.navigate('UpdateStaff', { staff: staff })
+    }
+
+    function deleteStaff() {
+        Alert.alert(
+            'Notice',
+            'Are you sure you want to remove this staff account?',
+            [
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        // remove this staff account from the database
+                        // then, go back to the staff screen
+                        prop.navigation.navigate('Staff')
+                    }
+                },
+                {
+                    text: 'No',
+                    onPress: () => {}
+                }
+            ]
+        )
+    }
+
     return (
         <SafeAreaView style={styles.root}>
             <StatusBar barStyle="light-content" />
@@ -122,7 +152,7 @@ export default function StaffBio(prop: any) {
                             <Text style={styles.username}>@{staff.username}</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.contactButton}>
+                    <TouchableOpacity style={styles.contactButton} onPress={openEmailApp}>
                         <Text style={styles.contactText}>Contact</Text>
                     </TouchableOpacity>
                     <View style={styles.infoFrame}>
@@ -140,6 +170,14 @@ export default function StaffBio(prop: any) {
                     <View style={styles.infoFrame}>
                         <Text style={[styles.infoText, {fontWeight: 'bold' }]}>Joined:   </Text>
                         <Text style={styles.infoText}>{staff.created}</Text>
+                    </View>
+                    <View style={styles.deleteAndUpdateButtonsFrame}>
+                        <TouchableOpacity style={styles.updateButton} onPress={openUpdateStaffScreen}>
+                            <Text style={styles.updateText}>Update</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.deleteButton} onPress={deleteStaff}>
+                            <Text style={styles.deleteText}>Delete</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
@@ -197,7 +235,7 @@ const styles = StyleSheet.create({
     username: {
         textAlign: 'right',
         marginLeft: 70,
-        color: 'snow',
+        color: 'grey',
         fontSize: 26,
         marginTop: 20,
     },
@@ -215,6 +253,7 @@ const styles = StyleSheet.create({
 
     contactText: {
         fontSize: 22,
+        fontWeight: 'bold',
         color: 'snow'
     },
 
@@ -226,6 +265,42 @@ const styles = StyleSheet.create({
         fontSize: 29,
         color: 'white',
         marginTop: 20,
+    },
+
+    deleteAndUpdateButtonsFrame: {
+        flexDirection: 'row',
+        marginTop: 60,
+        justifyContent: 'center',
+    },
+
+    updateButton: {
+        width: 160,
+        height: 50,
+        borderRadius: 30,
+        backgroundColor: 'white',
+        marginRight: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    deleteButton: {
+        width: 160,
+        height: 50,
+        borderRadius: 30,
+        backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    updateText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+    },
+
+    deleteText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: 'white'
     },
 })
 ///////////////////////////////////
