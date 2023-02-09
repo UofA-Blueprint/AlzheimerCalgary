@@ -12,6 +12,7 @@ import ActivityDetail from './views/staff/ActivityDetail'
 import EditPost from './views/staff/EditPost'
 import AddStaff from './views/staff/AddStaff'
 import StaffBio from './views/staff/StaffBio'
+import UpdateStaff from './views/staff/UpdateStaff'
 import ClientBio from './views/staff/ClientBio'
 import AddClient from './views/staff/AddClient'
 
@@ -31,7 +32,8 @@ export default function StaffApp() {
         <Stack.Screen name="ActivityDetail" component={ActivityDetail} />
         <Stack.Screen name="EditPost" component={EditPost} />
         <Stack.Screen name="AddStaff" component={AddStaff} options={{ headerShown: false }}/>
-        <Stack.Screen name="StaffBio" component={StaffBio} options={{ title: 'Staff Bio' }}/>
+        <Stack.Screen name="StaffBio" component={StaffBio} options={{ headerShown: false }}/>
+        <Stack.Screen name="UpdateStaff" component={UpdateStaff} />
         <Stack.Screen name="ClientBio" component={ClientBio} options={{ title: 'Client Bio' }}/>
         <Stack.Screen name="AddClient" component={AddClient} options={{ title: 'Add Client' }}/>
       </Stack.Navigator>

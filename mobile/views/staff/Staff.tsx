@@ -117,7 +117,8 @@ export default function Staff(prop: any) {
       departmentId: 1,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'johnsmith@gmail.com',
-      created: '2023-01-01'
+      created: '2023-01-01',
+      avatar: '',
     },
 
     {
@@ -128,7 +129,8 @@ export default function Staff(prop: any) {
       departmentId: 2,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'clarkkent@gmail.com',
-      created: '2023-02-01'
+      created: '2023-02-01',
+      avatar: '',
     },
 
     {
@@ -139,7 +141,8 @@ export default function Staff(prop: any) {
       departmentId: 3,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'lucasmilton@gmail.com',
-      created: '2023-02-15'
+      created: '2023-02-15',
+      avatar: '',
     },
 
     {
@@ -150,7 +153,8 @@ export default function Staff(prop: any) {
       departmentId: 4,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'tomholland@gmail.com',
-      created: '2023-02-09'
+      created: '2023-02-09',
+      avatar: '',
     },
 
     {
@@ -161,7 +165,8 @@ export default function Staff(prop: any) {
       departmentId: 1,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'tanyaboothe@gmail.com',
-      created: '2023-05-01'
+      created: '2023-05-01',
+      avatar: '',
     },
 
     {
@@ -172,7 +177,8 @@ export default function Staff(prop: any) {
       departmentId: 2,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'tonyphan@gmail.com',
-      created: '2023-05-05'
+      created: '2023-05-05',
+      avatar: '',
     },
 
     {
@@ -183,7 +189,8 @@ export default function Staff(prop: any) {
       departmentId: 3,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'peggyross@gmail.com',
-      created: '2023-02-15'
+      created: '2023-02-15',
+      avatar: '',
     },
 
     {
@@ -194,7 +201,8 @@ export default function Staff(prop: any) {
       departmentId: 4,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'nicolecollins@gmail.com',
-      created: '2023-02-09'
+      created: '2023-02-09',
+      avatar: '',
     },
 
     {
@@ -205,7 +213,8 @@ export default function Staff(prop: any) {
       departmentId: 1,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'markjamison@gmail.com',
-      created: '2023-01-01'
+      created: '2023-01-01',
+      avatar: '',
     },
 
     {
@@ -216,7 +225,8 @@ export default function Staff(prop: any) {
       departmentId: 2,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'franklampard@gmail.com',
-      created: '2023-02-01'
+      created: '2023-02-01',
+      avatar: '',
     },
 
     {
@@ -227,7 +237,8 @@ export default function Staff(prop: any) {
       departmentId: 3,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'jennifersmith@gmail.com',
-      created: '2023-02-15'
+      created: '2023-02-15',
+      avatar: '',
     },
 
     {
@@ -238,7 +249,8 @@ export default function Staff(prop: any) {
       departmentId: 4,
       hash_password: 'a;rgijae;ogjao;erigj',
       contactEmail: 'richardholland@gmail.com',
-      created: '2023-02-09'
+      created: '2023-02-09',
+      avatar: '',
     },
 
   ]
@@ -266,9 +278,19 @@ export default function Staff(prop: any) {
 
   const StaffView = ({ staff }) => {
     return (
-      <TouchableOpacity style={styles.staffView} onPress={() => {prop.navigation.navigate('StaffBio')}}>
-        <Text style={styles.staffNameText}>{staff.firstName} {staff.lastName}</Text>
-        <Text style={styles.staffUsername}>@{staff.username}</Text>
+      <TouchableOpacity style={styles.staffView} onPress={() => {prop.navigation.navigate('StaffBio', { staff: staff })}}>
+        <View style={styles.upperFrame}>
+          <View style={styles.avatarFrame}>
+            {
+              /* This is a placeholder avatar */
+              <Ionicons name="person-circle-outline" size={60} color="black" />
+            }
+          </View>
+          <View style={styles.nameFrame}>
+            <Text style={styles.staffNameText}>{staff.firstName} {staff.lastName}</Text>
+            <Text style={styles.staffUsername}>@{staff.username}</Text>
+          </View>
+        </View>
         <Text style={styles.staffDepartmentText}>Department: {Departments.find((department) => {return department.did === staff.departmentId}).name}</Text>
         <View style={styles.staffStatusFrame}>
           <Text style={styles.staffStatusText}>Status:</Text>
@@ -489,8 +511,8 @@ const styles = StyleSheet.create({
   },
 
   staffView: {
-    width: 250,
-    paddingLeft: 20,
+    width: 300,
+    paddingHorizontal: 10,
     paddingVertical: 20,
     backgroundColor: 'white',
     margin: 40,
@@ -504,26 +526,47 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
 
+  upperFrame: {
+    width: 270,
+    flexDirection: 'row',
+    marginLeft: 10,
+  },
+
+  avatarFrame: {
+    width: 60,
+    justifyContent: 'center',
+  },
+
+  nameFrame: {
+    width: 210,
+    paddingLeft: 4,
+    paddingRight: 10,
+  },
+
   staffNameText: {
     fontSize: 23,
     fontWeight: 'bold',
+    textAlign: 'right',
   },
 
   staffUsername: {
     fontSize: 20,
     color: 'grey',
     marginTop: 10,
+    textAlign: 'right',
   },
 
   staffDepartmentText: {
     marginTop: 10,
     fontSize: 20,
+    marginLeft: 10,
   },
 
   staffStatusFrame: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 10,
+    marginLeft: 10,
   },
 
   staffStatusText: {
