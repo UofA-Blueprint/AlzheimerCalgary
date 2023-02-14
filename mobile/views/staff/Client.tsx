@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react'
 
 import ClientFiltersPopUp from  '../../components/ClientFiltersPopUp'
@@ -28,6 +29,7 @@ export default function Client(prop: any) {
       birthMonth: 5,
       birthYear: 1942,
       usuallyComesIn: ['Mon', 'Wed', 'Fri'],
+      avatar: '',
     },
 
     {
@@ -38,6 +40,7 @@ export default function Client(prop: any) {
       birthMonth: 3,
       birthYear: 1939,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -48,6 +51,7 @@ export default function Client(prop: any) {
       birthMonth: 6,
       birthYear: 1955,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -58,6 +62,7 @@ export default function Client(prop: any) {
       birthMonth: 1,
       birthYear: 1940,
       usuallyComesIn: ['Tue', 'Wed', 'Sat', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -68,6 +73,7 @@ export default function Client(prop: any) {
       birthMonth: 3,
       birthYear: 1935,
       usuallyComesIn: ['Tue', 'Wed', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -78,6 +84,7 @@ export default function Client(prop: any) {
       birthMonth: 12,
       birthYear: 1965,
       usuallyComesIn: ['Tue', 'Thurs', 'Sat'],
+      avatar: '',
     },
 
     {
@@ -88,6 +95,7 @@ export default function Client(prop: any) {
       birthMonth: 10,
       birthYear: 1945,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -98,6 +106,7 @@ export default function Client(prop: any) {
       birthMonth: 2,
       birthYear: 1982,
       usuallyComesIn: ['Mon', 'Tue', 'Thurs', , 'Sat', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -108,6 +117,7 @@ export default function Client(prop: any) {
       birthMonth: 5,
       birthYear: 1962,
       usuallyComesIn: ['Mon', 'Thurs', 'Fri', 'Sat'],
+      avatar: '',
     },
 
     {
@@ -118,6 +128,7 @@ export default function Client(prop: any) {
       birthMonth: 5,
       birthYear: 1940,
       usuallyComesIn: ['Thurs', 'Fri', 'Sat', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -128,6 +139,7 @@ export default function Client(prop: any) {
       birthMonth: 5,
       birthYear: 1946,
       usuallyComesIn: ['Mon', 'Tue', 'Sat', 'Sun'],
+      avatar: '',
     },
 
     {
@@ -138,6 +150,7 @@ export default function Client(prop: any) {
       birthMonth: 9,
       birthYear: 1957,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs'],
+      avatar: '',
     },
   ]
 
@@ -166,6 +179,7 @@ export default function Client(prop: any) {
   const [ allClientsFilter, setAllClientsFilter ] = useState(true)
   const [ onCampusFilter, setOnCampusFilter ] = useState(false)
   const [ offCampusFilter, setOffCampusFilter ] = useState(false)
+
   const stateTracker = {
     allClients: true,
     onCampus: false,
@@ -240,20 +254,57 @@ export default function Client(prop: any) {
     }
   }, [allClientsFilter, onCampusFilter, offCampusFilter])
 
+  const [ clientsOnCampus, setClientsOnCampus ] = useState(OnCampus)
+
+  function updateClientsOnCampusInDatabase() {}
+
   const ClientView = ({ client }) => {
+    let initialState = false
+    for (let clientObject of OnCampus) {
+      if (clientObject.cid === client.cid) {
+        initialState = true
+        break
+      }
+    }
+    function changeOnCampusStatus(cid, newStatus) {
+      if (newStatus) {
+        const newOnCampusClients = [...clientsOnCampus, {cid: cid}]
+        setClientsOnCampus(newOnCampusClients)
+        return
+      }
+      else {
+        const newOnCampusClients = clientsOnCampus.filter((clientObject) => {return clientObject.cid !== cid})
+        setClientsOnCampus(newOnCampusClients)
+        return
+      }
+    }
     return (
-      <TouchableOpacity style={styles.clientView} onPress={() => {prop.navigation.navigate('ClientBio')}}>
-        <Text style={styles.clientNameText}>{client.firstname} {client.lastname}</Text>
+      <View style={styles.clientView}>
+        <TouchableOpacity onPress={() => {prop.navigation.navigate('ClientBio')}}>
+          <Text style={styles.clientNameText}>{client.firstname} {client.lastname}</Text>
+        </TouchableOpacity>
         <Text style={styles.clientBirthdayText}>{client.birthYear}/{client.birthMonth}/{client.birthDay}</Text>
         <View style={styles.clientStatusFrame}>
           <Text style={styles.clientStatusText}>Status:</Text>
           {
-            OnCampus.find((element) => {return element.cid === client.cid}) ?
+            clientsOnCampus.find((element) => {return element.cid === client.cid}) ?
               <FontAwesome name="circle" size={30} color="#99EDC3" />
             : <FontAwesome name="circle" size={30} color="grey" />
           }
         </View>
-      </TouchableOpacity>
+        {
+          clientsOnCampus.filter((clientObject) => {return clientObject.cid === client.cid}).length > 0 ?
+            <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: 'black'}]} onPress={() => changeOnCampusStatus(client.cid, false)}>
+              <MaterialCommunityIcons name="home-remove" size={27} color="white" />
+              <Text style={styles.checkInCheckOutText}>Check-out</Text>
+            </TouchableOpacity>
+          :
+            <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#C5C6D0'}]} onPress={() => changeOnCampusStatus(client.cid, true)}>
+              <MaterialCommunityIcons name="home-plus" size={27} color="white" />
+              <Text style={styles.checkInCheckOutText}>Check-in</Text>
+            </TouchableOpacity>
+        }
+      </View>
   )}
 
   return (
@@ -406,7 +457,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'grey',
+    backgroundColor: 'black',
     borderRadius: 20,
     paddingLeft: 20,
   },
@@ -455,6 +506,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginRight: 10,
     color: 'grey',
+  },
+
+  checkInCheckOutButton: {
+    marginTop: 20,
+    width: 165,
+    height: 40,
+    borderRadius: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  checkInCheckOutText: {
+    fontSize: 18,
+    marginLeft: 10,
+    color: 'white'
   },
 
   clientContainer: {
