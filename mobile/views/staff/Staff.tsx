@@ -1,6 +1,7 @@
 ///////////////////////// Import Dependencies //////////////////////////////
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { 
+  Animated,
   Text, 
   ScrollView,
   View, 
@@ -261,6 +262,7 @@ export default function Staff(prop: any) {
   const [ searchedStaff, setSearchedStaff ] = useState("")
   const [ allStaffFilter, setAllStaffFilter ] = useState(true)
   const [ onDutyFilter, setOnDutyFilter ] = useState(false)
+  const scaleValue = useRef(new Animated.Value(0)).current
   const departmentFilters = {}
   for (let department of Departments) {
     departmentFilters[department.did] = useState(true)
@@ -343,6 +345,16 @@ export default function Staff(prop: any) {
     prop.navigation.navigate('AddStaff')
   }
 
+  function openStaffFiltersPopUp() {
+    setStaffFiltersPopUpVisible(true)
+    Animated.spring(scaleValue, {toValue: 1, duration: 300, useNativeDriver: true}).start();
+  }
+
+  function closeStaffFiltersPopUp() {
+    setTimeout(() => setStaffFiltersPopUpVisible(false), 100);
+    Animated.timing(scaleValue, {toValue: 0, duration: 100, useNativeDriver: true}).start();
+  }
+
   return (
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle="light-content" />
@@ -375,7 +387,7 @@ export default function Staff(prop: any) {
           </View>
         </View>
         <View style={styles.filterButtonFrame}>
-          <TouchableOpacity style={styles.filterButton} onPress={() => setStaffFiltersPopUpVisible(true)}>
+          <TouchableOpacity style={styles.filterButton} onPress={openStaffFiltersPopUp}>
             <Ionicons name="filter" size={30} color="black" />
             <Text style={styles.filterButtonText}>Filters</Text>
           </TouchableOpacity>
@@ -384,12 +396,13 @@ export default function Staff(prop: any) {
       {
         staffFiltersPopUpVisible ?
           <StaffFiltersPopUp 
-            setVisible={setStaffFiltersPopUpVisible} 
             allStaffFilter={allStaffFilter} 
             setAllStaffFilter={setAllStaffFilter}
             onDutyFilter={onDutyFilter}
             setOnDutyFilter={setOnDutyFilter}
             departmentRenderItems={departmentRenderItems}
+            closeStaffFiltersPopUp={closeStaffFiltersPopUp}
+            scaleValue={scaleValue}
           />
         : null
       }

@@ -1,6 +1,7 @@
 ////////// Import Dependencies //////////
 import * as React from 'react'
 import { 
+    Animated,
     StyleSheet, 
     Modal, 
     View, 
@@ -13,36 +14,38 @@ import CheckBox from './CheckBox'
 
 /////////// Configurations ///////////
 interface Props {
-	setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     allClientsFilter: Boolean;
     setAllClientsFilter: any;
     onCampusFilter: Boolean;
     setOnCampusFilter: any;
     offCampusFilter: Boolean;
     setOffCampusFilter: any;
+    closeClientFiltersPopUp: any;
+    scaleValue: Number;
 };
 //////////////////////////////////////
 
 //////////////// Component //////////////
 export default function ClientFiltersPopUp({ 
-    setVisible, 
     allClientsFilter, 
     setAllClientsFilter, 
     onCampusFilter,
     setOnCampusFilter,
     offCampusFilter,
-    setOffCampusFilter }: Props) 
+    setOffCampusFilter,
+    closeClientFiltersPopUp,
+    scaleValue }: Props) 
 {
 	return (
 		<Modal transparent>
 			<View style={styles.popUpOuterFrame}>
-				<View style={styles.popUpInnerFrame}>
+				<Animated.View style={[styles.popUpInnerFrame, { transform: [{ scale: scaleValue }] }]}>
                     <View style={styles.titleAndCloseFrame}>
                         <View style={styles.titleFrame}>
                             <Text style={styles.title}>FILTERS</Text>
                         </View>
                         <View style={styles.closeFrame}>
-                            <TouchableOpacity onPress={() => {setVisible(false)}}><EvilIcons name="close" size={38} color="white" /></TouchableOpacity>
+                            <TouchableOpacity onPress={closeClientFiltersPopUp}><EvilIcons name="close" size={38} color="white" /></TouchableOpacity>
                         </View>
                     </View>
                     <Text style={styles.instruction}>*Remove your current choice before choosing a new one.</Text>
@@ -51,7 +54,7 @@ export default function ClientFiltersPopUp({
                         <View style={{ marginLeft: 20, marginTop: 20 }}><CheckBox value={onCampusFilter} setValue={setOnCampusFilter} label='On Campus' checkBoxStyle={styles.checkbox}/></View>
                         <View style={{ marginLeft: 20, marginTop: 20 }}><CheckBox value={offCampusFilter} setValue={setOffCampusFilter} label='Off Campus' checkBoxStyle={styles.checkbox}/></View>
                     </View>
-				</View>
+				</Animated.View>
 			</View>
 		</Modal>
 	);
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
 
 	popUpInnerFrame: {
 		width: 350,
-		backgroundColor: 'black',
+		backgroundColor: '#8d99ae',
 		borderRadius: 20,
         paddingTop: 10,
         paddingBottom: 30,
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
 
     instruction: {
         fontSize: 16,
-        color: 'grey',
+        color: '#edf2f4',
         marginRight: 10,
         marginLeft: 20,
         marginTop: 6

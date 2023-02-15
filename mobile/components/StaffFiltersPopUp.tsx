@@ -1,12 +1,12 @@
 ////////// Import Dependencies //////////
 import * as React from 'react'
 import { 
+    Animated,
     StyleSheet, 
     Modal, 
     View, 
     TouchableOpacity, 
-    Text,
-    } from 'react-native'
+    Text } from 'react-native'
 import { EvilIcons } from '@expo/vector-icons'
 import CheckBox from './CheckBox'
 import FilterDropdown from './FilterDropdown'
@@ -14,34 +14,37 @@ import FilterDropdown from './FilterDropdown'
 
 /////////// Configurations ///////////
 interface Props {
-	setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     allStaffFilter: Boolean;
     setAllStaffFilter: any;
     onDutyFilter: Boolean;
     setOnDutyFilter: any;
     departmentRenderItems: any;
+    closeStaffFiltersPopUp: any;
+    scaleValue: Number;
 };
 //////////////////////////////////////
 
 //////////////// Component //////////////
 export default function StaffFiltersPopUp({ 
-    setVisible, 
     allStaffFilter, 
     setAllStaffFilter, 
     onDutyFilter,
     setOnDutyFilter,
-    departmentRenderItems }: Props) 
+    departmentRenderItems,
+    closeStaffFiltersPopUp,
+    scaleValue
+    }: Props) 
 {
 	return (
 		<Modal transparent>
 			<View style={styles.popUpOuterFrame}>
-				<View style={styles.popUpInnerFrame}>
+				<Animated.View style={[styles.popUpInnerFrame, { transform: [{ scale: scaleValue }] }]}>
                     <View style={styles.titleAndCloseFrame}>
                         <View style={styles.titleFrame}>
                             <Text style={styles.title}>FILTERS</Text>
                         </View>
                         <View style={styles.closeFrame}>
-                            <TouchableOpacity onPress={() => {setVisible(false)}}><EvilIcons name="close" size={38} color="black" /></TouchableOpacity>
+                            <TouchableOpacity onPress={closeStaffFiltersPopUp}><EvilIcons name="close" size={38} color="black" /></TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.checkboxContainer}>
@@ -51,7 +54,7 @@ export default function StaffFiltersPopUp({
                     <View style={styles.dropdownContainer}>
                         <FilterDropdown label='Departments:' renderItems={departmentRenderItems} dropDownStyle={styles.dropdown}/>
                     </View>
-				</View>
+				</Animated.View>
 			</View>
 		</Modal>
 	);

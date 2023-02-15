@@ -1,5 +1,6 @@
 ///////////////////////////// Import Dependencies //////////////////////////////
 import { 
+  Animated,
   Text, 
   ScrollView,
   View, 
@@ -11,8 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useState, useEffect } from 'react'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useState, useEffect, useRef } from 'react'
 
 import ClientFiltersPopUp from  '../../components/ClientFiltersPopUp'
 ////////////////////////////////////////////////////////////////////////////
@@ -22,7 +23,7 @@ export default function Client(prop: any) {
   //////// Mock Data ////////
   const Clients = [
     {
-      cid: 1,
+      cid: '000001',
       firstname: 'Clark',
       lastname: 'Smith',
       birthDay: 15,
@@ -30,10 +31,11 @@ export default function Client(prop: any) {
       birthYear: 1942,
       usuallyComesIn: ['Mon', 'Wed', 'Fri'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 2,
+      cid: '000002',
       firstname: 'John',
       lastname: 'Kent',
       birthDay: 13,
@@ -41,10 +43,11 @@ export default function Client(prop: any) {
       birthYear: 1939,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 3,
+      cid: '000003',
       firstname: 'Tom',
       lastname: 'Milton',
       birthDay: 19,
@@ -52,10 +55,11 @@ export default function Client(prop: any) {
       birthYear: 1955,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 4,
+      cid: '000004',
       firstname: 'Lucas',
       lastname: 'Holland',
       birthDay: 20,
@@ -63,10 +67,11 @@ export default function Client(prop: any) {
       birthYear: 1940,
       usuallyComesIn: ['Tue', 'Wed', 'Sat', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 5,
+      cid: '000005',
       firstname: 'Tony',
       lastname: 'Boothe',
       birthDay: 31,
@@ -74,10 +79,11 @@ export default function Client(prop: any) {
       birthYear: 1935,
       usuallyComesIn: ['Tue', 'Wed', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 6,
+      cid: '000006',
       firstname: 'Tanya',
       lastname: 'Phan',
       birthDay: 6,
@@ -85,10 +91,11 @@ export default function Client(prop: any) {
       birthYear: 1965,
       usuallyComesIn: ['Tue', 'Thurs', 'Sat'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 7,
+      cid: '000007',
       firstname: 'Nicole',
       lastname: 'Ross',
       birthDay: 17,
@@ -96,10 +103,11 @@ export default function Client(prop: any) {
       birthYear: 1945,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 8,
+      cid: '000008',
       firstname: 'Peggy',
       lastname: 'Collins',
       birthDay: 9,
@@ -107,10 +115,11 @@ export default function Client(prop: any) {
       birthYear: 1982,
       usuallyComesIn: ['Mon', 'Tue', 'Thurs', , 'Sat', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 9,
+      cid: '000009',
       fristname: 'Frank',
       lastname: 'Jamison',
       birthDay: 3,
@@ -118,10 +127,11 @@ export default function Client(prop: any) {
       birthYear: 1962,
       usuallyComesIn: ['Mon', 'Thurs', 'Fri', 'Sat'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 10,
+      cid: '000010',
       firstname: 'Mark',
       lastname: 'Lampard',
       birthDay: 4,
@@ -129,10 +139,11 @@ export default function Client(prop: any) {
       birthYear: 1940,
       usuallyComesIn: ['Thurs', 'Fri', 'Sat', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 11,
+      cid: '000011',
       firstname: 'Richard',
       lastname: 'Smith',
       birthDay: 5,
@@ -140,10 +151,11 @@ export default function Client(prop: any) {
       birthYear: 1946,
       usuallyComesIn: ['Mon', 'Tue', 'Sat', 'Sun'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
     {
-      cid: 12,
+      cid: '000012',
       firstname: 'Jennifer',
       lastname:  'Holland',
       birthDay: 9,
@@ -151,24 +163,25 @@ export default function Client(prop: any) {
       birthYear: 1957,
       usuallyComesIn: ['Mon', 'Tue', 'Wed', 'Thurs'],
       avatar: '',
+      notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
   ]
 
   const OnCampus = [
     {
-      cid: 1
+      cid: '000001'
     },
     {
-      cid: 5
+      cid: '000004'
     },
     {
-      cid: 7
+      cid: '000007'
     },
     {
-      cid: 3
+      cid: '000008'
     },
     {
-      cid: 10
+      cid: '000010'
     },
   ]
   /////////////////////////
@@ -179,6 +192,7 @@ export default function Client(prop: any) {
   const [ allClientsFilter, setAllClientsFilter ] = useState(true)
   const [ onCampusFilter, setOnCampusFilter ] = useState(false)
   const [ offCampusFilter, setOffCampusFilter ] = useState(false)
+  const scaleValue = useRef(new Animated.Value(0)).current;
 
   const stateTracker = {
     allClients: true,
@@ -202,6 +216,16 @@ export default function Client(prop: any) {
       setFilteredClients(Clients)
       setSearchedClient(text)
     }
+  }
+
+  function openClientFiltersPopUp() {
+    setClientFiltersPopUpVisible(true)
+    Animated.spring(scaleValue, {toValue: 1, duration: 300, useNativeDriver: true}).start();
+  }
+
+  function closeClientFiltersPopUp() {
+    setTimeout(() => setClientFiltersPopUpVisible(false), 100);
+    Animated.timing(scaleValue, {toValue: 0, duration: 100, useNativeDriver: true}).start();
   }
 
   useEffect(() => {
@@ -280,8 +304,16 @@ export default function Client(prop: any) {
     }
     return (
       <View style={styles.clientView}>
-        <TouchableOpacity onPress={() => {prop.navigation.navigate('ClientBio')}}>
-          <Text style={styles.clientNameText}>{client.firstname} {client.lastname}</Text>
+        <TouchableOpacity style={styles.upperFrame} onPress={() => {prop.navigation.navigate('ClientBio', { client: client })}}>
+          <View style={styles.avatarFrame}>
+            {
+              /* This is a placeholder avatar */
+              <Ionicons name="person-circle-outline" size={60} color="black" />
+            }
+          </View>
+          <View style={styles.nameFrame}>
+            <Text style={styles.clientNameText}>{client.firstname} {client.lastname}</Text>
+          </View>
         </TouchableOpacity>
         <Text style={styles.clientBirthdayText}>{client.birthYear}/{client.birthMonth}/{client.birthDay}</Text>
         <View style={styles.clientStatusFrame}>
@@ -289,17 +321,17 @@ export default function Client(prop: any) {
           {
             clientsOnCampus.find((element) => {return element.cid === client.cid}) ?
               <FontAwesome name="circle" size={30} color="#99EDC3" />
-            : <FontAwesome name="circle" size={30} color="grey" />
+            : <FontAwesome name="circle" size={30} color="#C5C6D0" />
           }
         </View>
         {
           clientsOnCampus.filter((clientObject) => {return clientObject.cid === client.cid}).length > 0 ?
-            <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: 'black'}]} onPress={() => changeOnCampusStatus(client.cid, false)}>
+            <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#C5C6D0'}]} onPress={() => changeOnCampusStatus(client.cid, false)}>
               <MaterialCommunityIcons name="home-remove" size={27} color="white" />
               <Text style={styles.checkInCheckOutText}>Check-out</Text>
             </TouchableOpacity>
           :
-            <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#C5C6D0'}]} onPress={() => changeOnCampusStatus(client.cid, true)}>
+            <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#8d99ae'}]} onPress={() => changeOnCampusStatus(client.cid, true)}>
               <MaterialCommunityIcons name="home-plus" size={27} color="white" />
               <Text style={styles.checkInCheckOutText}>Check-in</Text>
             </TouchableOpacity>
@@ -311,7 +343,7 @@ export default function Client(prop: any) {
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle="dark-content" />
       <TouchableOpacity style={styles.backToDashboardButton} onPress={() => prop.navigation.goBack()}>
-        <Ionicons name="arrow-back-circle" size={40} color="black" />
+        <Ionicons name="arrow-back-circle" size={40} color="#2b2d42" />
         <Text style={styles.dashboardText}>Dashboard</Text>
       </TouchableOpacity>
       <View style={styles.titleAndAddClientFrame}>
@@ -320,14 +352,14 @@ export default function Client(prop: any) {
         </View>
         <View style={styles.addClientFrame}>
           <TouchableOpacity onPress={openAddClientScreen}>
-            <Ionicons name="person-add" size={35} color="black"/>
+            <Ionicons name="person-add" size={35} color="#2b2d42"/>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.searchAndFilterFrame}>
         <View style={styles.searchOuterFrame}>
           <View style={styles.searchInnerFrame}>
-            <Feather name="search" size={30} color="grey" />
+            <Feather name="search" size={30} color="#8d99ae" />
             <TextInput 
               style={styles.searchInputField} 
               placeholder="Search client" 
@@ -339,7 +371,7 @@ export default function Client(prop: any) {
           </View>
         </View>
         <View style={styles.filterButtonFrame}>
-          <TouchableOpacity style={styles.filterButton} onPress={() => setClientFiltersPopUpVisible(true)}>
+          <TouchableOpacity style={styles.filterButton} onPress={openClientFiltersPopUp}>
             <Ionicons name="filter" size={30} color="snow" />
             <Text style={styles.filterButtonText}>Filters</Text>
           </TouchableOpacity>
@@ -348,13 +380,14 @@ export default function Client(prop: any) {
       {
         clientFiltersPopUpVisible ?
           <ClientFiltersPopUp 
-            setVisible={setClientFiltersPopUpVisible} 
             allClientsFilter={allClientsFilter} 
             setAllClientsFilter={setAllClientsFilter}
             onCampusFilter={onCampusFilter}
             setOnCampusFilter={setOnCampusFilter}
             offCampusFilter={offCampusFilter}
             setOffCampusFilter={setOffCampusFilter}
+            closeClientFiltersPopUp={closeClientFiltersPopUp}
+            scaleValue={scaleValue}
           />
         : null
       }
@@ -407,7 +440,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 50,
-    color: 'black',
+    color: '#2b2d42',
     fontWeight: 'bold',
   },
 
@@ -457,7 +490,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#2b2d42',
     borderRadius: 20,
     paddingLeft: 20,
   },
@@ -470,7 +503,7 @@ const styles = StyleSheet.create({
   },
 
   clientView: {
-    width: 250,
+    width: 280,
     paddingLeft: 20,
     paddingVertical: 20,
     backgroundColor: 'white',
@@ -485,9 +518,27 @@ const styles = StyleSheet.create({
     elevation: 22,
   },
 
+  upperFrame: {
+    width: 260,
+    flexDirection: 'row',
+  },
+
+  avatarFrame: {
+    width: 60,
+    justifyContent: 'center',
+  },
+
+  nameFrame: {
+    width: 200,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+
   clientNameText: {
     fontSize: 23,
     fontWeight: 'bold',
+    marginRight: 20,
+    color: '#2b2d42',
   },
 
   clientBirthdayText: {
