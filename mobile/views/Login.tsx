@@ -98,6 +98,7 @@ const Login = () => {
           value={email}
           onChangeText={(text) => handleCheckEmail(text)}
           keyboardType="email-address"
+          autoCapitalize='none'
         />
 
         {checkValidEmail ? <Text>Invalid email</Text> : <Text></Text>}

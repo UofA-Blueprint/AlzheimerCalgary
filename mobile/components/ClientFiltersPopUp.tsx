@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
 
 	popUpInnerFrame: {
 		width: 350,
-		backgroundColor: '#8d99ae',
+		backgroundColor: '#3d5a80',
 		borderRadius: 20,
         paddingTop: 10,
         paddingBottom: 30,

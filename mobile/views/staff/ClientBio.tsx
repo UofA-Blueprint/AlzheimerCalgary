@@ -1,12 +1,10 @@
 ///////////////// Import Dependencies ////////////////
 import { 
-    Alert,
     Text, 
     ScrollView,
     View, 
     StyleSheet, 
     TouchableOpacity, 
-    Linking,
     StatusBar } from 'react-native'
 import { useState } from 'react'
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -45,6 +43,8 @@ export default function ClientBio(prop: any) {
     const [ isOnCampus, setIsOnCampus ] = useState(initialState)
 
     function openCaregiversPopUp() {}
+    function updateClientNote() {}
+    function createNewActivity() {}
 
     function updateClientsOnCampus(newStatus) {
         // update status
@@ -59,7 +59,7 @@ export default function ClientBio(prop: any) {
                 <Ionicons name="arrow-back-circle" size={40} color="#2b2d42" />
                 <Text style={styles.navText}>Clients</Text>
             </TouchableOpacity>
-            <ScrollView>
+            <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
                 <View style={styles.topFrame}>
                     <View style={styles.leftTop}>
                         <Ionicons name="person-circle-outline" size={150} color="black" />
@@ -76,7 +76,16 @@ export default function ClientBio(prop: any) {
                     </View>
                 </View>
                 <View style={styles.notesFrame}>
-                    <Text style={styles.notesTitle}>Notes:</Text>
+                    <View style={styles.notesTitleAndAddFrame}>
+                        <View style={styles.notesTitleFrame}>
+                            <Text style={styles.notesTitle}>Notes:</Text>
+                        </View>
+                        <View style={styles.addNotesFrame}>
+                            <TouchableOpacity onPress={updateClientNote}>
+                                <MaterialCommunityIcons name="pencil-box-multiple" size={50} color="#14213d" />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                     <Text style={styles.notesText}>{client.notes}</Text>
                 </View>
                 <View style={styles.statusFrame}>
@@ -88,7 +97,7 @@ export default function ClientBio(prop: any) {
                                     <FontAwesome name="circle" size={30} color="#99EDC3" />
                                     <Text style={styles.statusText}>On-campus</Text>
                                 </View>
-                                <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#C5C6D0'}]} onPress={() => updateClientsOnCampus(false)}>
+                                <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#6c757d'}]} onPress={() => updateClientsOnCampus(false)}>
                                     <MaterialCommunityIcons name="home-remove" size={27} color="white" />
                                     <Text style={styles.checkInCheckOutText}>Check-out</Text>
                                 </TouchableOpacity>
@@ -99,12 +108,26 @@ export default function ClientBio(prop: any) {
                                     <FontAwesome name="circle" size={30} color="#C5C6D0" />
                                     <Text style={styles.statusText}>Off-campus</Text>
                                 </View>
-                                <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#8d99ae'}]} onPress={() => updateClientsOnCampus(true)}>
+                                <TouchableOpacity style={[styles.checkInCheckOutButton, {backgroundColor: '#14213d'}]} onPress={() => updateClientsOnCampus(true)}>
                                     <MaterialCommunityIcons name="home-remove" size={27} color="white" />
                                     <Text style={styles.checkInCheckOutText}>Check-in</Text>
                                 </TouchableOpacity>
                             </>
                     }
+                </View>
+                <View style={styles.activitiesFrame}>
+                    <View style={styles.activityTitleAndAddFrame}>
+                        <View style={styles.activityTitleFrame}>
+                            <Text style={styles.activitiesTitle}>Activities:</Text>
+                        </View>
+                        <View style={styles.addActivityFrame}>
+                            <TouchableOpacity style={styles.addActivityButton} onPress={createNewActivity}>
+                                <Ionicons name="add-sharp" size={24} color="white" />
+                                <Text style={styles.addActivityText}>New Activity</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -153,7 +176,7 @@ const styles = StyleSheet.create({
     clientName: {
         fontSize: 40,
         fontWeight: 'bold',
-        color: '#8d99ae'
+        color: '#fca311'
     },
 
     clientID: {
@@ -172,11 +195,18 @@ const styles = StyleSheet.create({
     viewCaregiversButton: {
         width: 200,
         height: 50,
-        backgroundColor: '#2b2d42',
-        borderRadius: 15,
+        backgroundColor: '#3d5a80',
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        shadowColor: "grey",
+        shadowOffset: {
+        width: 8,
+        height: 12,
+        },
+        shadowOpacity: 0.58,
+        elevation: 22,
     },
 
     viewCaregiversText: {
@@ -188,7 +218,17 @@ const styles = StyleSheet.create({
     notesFrame: {
         width: '100%',
         marginTop: 30,
-        paddingHorizontal: 30,
+    },
+
+    notesTitleAndAddFrame: {
+        width: '100%',
+        flexDirection: 'row'
+    },
+
+    notesTitleFrame: {
+        width: '50%%',
+        justifyContent: 'center',
+        paddingLeft: 30
     },
 
     notesTitle: {
@@ -197,15 +237,23 @@ const styles = StyleSheet.create({
         color: '#2b2d42',
     },
 
+    addNotesFrame: {
+        width: '50%',
+        paddingRight: 50,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
+
     notesText: {
         color: '#2b2d42',
         marginTop: 10,
         fontSize: 20,
+        marginHorizontal: 30,
     },
 
     statusFrame: {
         width: '100%',
-        marginTop: 35,
+        marginVertical: 35,
         paddingLeft: 30
     },
 
@@ -240,6 +288,57 @@ const styles = StyleSheet.create({
     checkInCheckOutText: {
         fontSize: 18,
         marginLeft: 10,
+        color: 'white'
+    },
+
+    activitiesFrame: {
+        width: '100%',
+    },
+
+    activityTitleAndAddFrame: {
+        width: '100%',
+        flexDirection: 'row',
+    },
+
+    activityTitleFrame: {
+        width: '50%',
+        paddingLeft: 30,
+        justifyContent: 'center',
+    },
+
+    activitiesTitle: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#2b2d42'
+    },
+
+    addActivityFrame: {
+        width: '50%',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        paddingRight: 50,
+    },
+
+    addActivityButton: {
+        width: 170,
+        height: 50,
+        backgroundColor: '#3d5a80',
+        borderRadius: 10,
+        shadowColor: "grey",
+        shadowOffset: {
+        width: 8,
+        height: 12,
+        },
+        shadowOpacity: 0.58,
+        elevation: 22,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    addActivityText: {
+        marginLeft: 10,
+        fontSize: 20,
         color: 'white'
     },
 })

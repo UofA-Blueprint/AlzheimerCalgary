@@ -21,6 +21,12 @@ import ClientFiltersPopUp from  '../../components/ClientFiltersPopUp'
 ////////////////////////// Component ////////////////////////////
 export default function Client(prop: any) {
   //////// Mock Data ////////
+  const Moods = [
+    {
+      name: ''
+    }
+  ]
+
   const Clients = [
     {
       cid: '000001',
@@ -31,6 +37,7 @@ export default function Client(prop: any) {
       birthYear: 1942,
       usuallyComesIn: ['Mon', 'Wed', 'Fri'],
       avatar: '',
+      mood: '',
       notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
 
@@ -359,7 +366,7 @@ export default function Client(prop: any) {
       <View style={styles.searchAndFilterFrame}>
         <View style={styles.searchOuterFrame}>
           <View style={styles.searchInnerFrame}>
-            <Feather name="search" size={30} color="#8d99ae" />
+            <Feather name="search" size={30} color="#2b2d42" />
             <TextInput 
               style={styles.searchInputField} 
               placeholder="Search client" 
@@ -468,7 +475,7 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     borderBottomWidth: 2,
-    borderColor: 'black',
+    borderColor: '#C5C6D0',
     alignItems: 'center',
   },
 
@@ -490,7 +497,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#2b2d42',
+    backgroundColor: '#3d5a80',
     borderRadius: 20,
     paddingLeft: 20,
   },
@@ -538,7 +545,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: 'bold',
     marginRight: 20,
-    color: '#2b2d42',
+    color: '#F2B679',
   },
 
   clientBirthdayText: {
