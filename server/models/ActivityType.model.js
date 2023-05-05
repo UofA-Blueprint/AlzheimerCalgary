@@ -1,0 +1,21 @@
+////////////// Import dependencies //////
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+////////////////////////////////////////
+
+
+//////// Create a database model //////
+const ActivityTypeSchema = new Schema({
+	name: {
+		type: String,
+		unique: true,
+		trim: true,
+		required: true,
+	},
+});
+//////////////////////////////////////
+
+
+/////////////////////////////// Exports /////////////////////////////
+module.exports = mongoose.model('Activity_Type', ActivityTypeSchema);
+////////////////////////////////////////////////////////////////////
